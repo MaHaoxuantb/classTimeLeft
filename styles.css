@@ -208,3 +208,8 @@ button:hover {
         width: 100%;
     }
 }
+
+.details {
+    padding-top: 3.2em;
+    color:#555555;
+}
