@@ -1,0 +1,16 @@
+/* themes/dark.css */
+
+:root {
+    --background-color: #121212;
+    --text-color: #e0e0e0;
+    --button-bg-color: #1f6feb;
+    --button-hover-bg-color: #1158c7;
+    --countdown-bg-color: #1e1e1e;
+    --countdown-text-color: #e0e0e0;
+    --header-bg-color: #1e1e1e;
+    --header-text-color: #e0e0e0;
+    --select-bg-color: #1e1e1e;
+    --select-text-color: #e0e0e0;
+    --exit-button-bg-color: #ff4d4d;
+    --exit-button-hover-bg-color: #cc0000;
+}

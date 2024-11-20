@@ -1,0 +1,16 @@
+/* themes/solarized.css */
+
+:root {
+    --background-color: #fdf6e3;
+    --text-color: #657b83;
+    --button-bg-color: #268bd2;
+    --button-hover-bg-color: #00629b;
+    --countdown-bg-color: #eee8d5;
+    --countdown-text-color: #586e75;
+    --header-bg-color: #eee8d5;
+    --header-text-color: #586e75;
+    --select-bg-color: #eee8d5;
+    --select-text-color: #586e75;
+    --exit-button-bg-color: #ff4d4d;
+    --exit-button-hover-bg-color: #cc0000;
+}

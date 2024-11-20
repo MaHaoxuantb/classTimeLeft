@@ -1,0 +1,62 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Countdown Timer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <!-- Default theme is loaded initially -->
+    <link id="theme-link" rel="stylesheet" href="themes/default.css">
+</head>
+<body>
+    <!-- Setup Screen -->
+    <div class="container" id="setupScreen">
+        <h1>Class Countdown Timer</h1>
+        <form id="timeForm">
+            <label for="endTime">Enter Class End Time (Format: HH:MM, e.g., 15:30):</label>
+            <input type="time" id="endTime" required>
+            <button type="submit">Start Countdown</button>
+        </form>
+        <!-- Theme Selection Dropdown -->
+        <div class="theme-selector">
+            <label for="themeSelect">Select Theme:</label>
+            <select id="themeSelect">
+                <option value="default">Default</option>
+                <option value="dark">Dark</option>
+                <option value="solarized">Solarized</option>
+                <option value="monokai">Monokai</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Countdown Screen -->
+    <div class="countdown-container" id="countdownScreen" style="display: none;">
+        <!-- Time Display -->
+        <p id="timeDisplay">00:00:00</p>
+        
+        <!-- "Remaining Time" Text -->
+        <h2 id="remainingTimeText">Remaining Time</h2>
+        
+        <!-- Footer: Exit Button and Theme Selector -->
+        <div class="countdown-footer">
+            <button id="exitButton" aria-label="Exit Countdown">Exit</button>
+            <div class="theme-selector">
+                <label for="themeSelectCountdown">Theme:</label>
+                <select id="themeSelectCountdown" aria-label="Select Theme">
+                    <option value="default">Default</option>
+                    <option value="dark">Dark</option>
+                    <option value="solarized">Solarized</option>
+                    <option value="monokai">Monokai</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Audio Element for Notifications -->
+        <audio id="alarmSound" src="alarm.mp3" preload="auto"></audio>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

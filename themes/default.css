@@ -1,0 +1,16 @@
+/* themes/default.css */
+
+:root {
+    --background-color: #f0f4f8;
+    --text-color: #333333;
+    --button-bg-color: #007BFF;
+    --button-hover-bg-color: #0056b3;
+    --countdown-bg-color: #ffffff;
+    --countdown-text-color: #333333;
+    --header-bg-color: #ffffff;
+    --header-text-color: #333333;
+    --select-bg-color: #ffffff;
+    --select-text-color: #333333;
+    --exit-button-bg-color: #ff4d4d;
+    --exit-button-hover-bg-color: #cc0000;
+}

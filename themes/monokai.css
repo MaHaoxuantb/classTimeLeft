@@ -1,0 +1,16 @@
+/* themes/monokai.css */
+
+:root {
+    --background-color: #272822;
+    --text-color: #f8f8f2;
+    --button-bg-color: #66d9ef;
+    --button-hover-bg-color: #38a1f3;
+    --countdown-bg-color: #3e3d32;
+    --countdown-text-color: #f8f8f2;
+    --header-bg-color: #3e3d32;
+    --header-text-color: #f8f8f2;
+    --select-bg-color: #3e3d32;
+    --select-text-color: #f8f8f2;
+    --exit-button-bg-color: #ff4d4d;
+    --exit-button-hover-bg-color: #cc0000;
+}

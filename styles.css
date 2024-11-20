@@ -1,0 +1,203 @@
+/* styles.css */
+
+/* 1. Reset default margins, paddings, and box-sizing for consistency */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 2. Ensure the HTML and Body occupy the full viewport and prevent horizontal overflow */
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden; /* Prevent horizontal scrollbars */
+}
+
+/* 3. Base styles for the Body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color, #f0f4f8);
+    color: var(--text-color, #333333);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* 4. Container Styles for Setup Screen */
+.container {
+    background-color: var(--countdown-bg-color, #ffffff);
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* 5. Countdown Container Styles */
+.countdown-container {
+    background-color: var(--countdown-bg-color, #000000);
+    color: var(--countdown-text-color, #00FF00);
+    
+    /* Ensure full coverage */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden; /* Prevent inner overflow */
+    
+    border-radius: 0;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.5s ease;
+}
+
+/* 6. Header Styles */
+h1 {
+    margin-bottom: 1em;
+    color: var(--header-text-color, #333333);
+}
+
+/* 7. Form Styles */
+form {
+    margin-bottom: 2em;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5em;
+    color: var(--text-color, #555555);
+}
+
+input[type="time"] {
+    padding: 0.5em;
+    width: 80%;
+    margin-bottom: 1em;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background-color: var(--select-bg-color, #ffffff);
+    color: var(--select-text-color, #333333);
+}
+
+/* 8. Button Styles */
+button {
+    padding: 0.5em 1em;
+    background-color: var(--button-bg-color, #007BFF);
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--button-hover-bg-color, #0056b3);
+}
+
+/* 9. Time Display Styles */
+#timeDisplay {
+    font-size: 6em; /* Increased size */
+    font-weight: bold;
+    color: var(--countdown-text-color, #00FF00);
+    margin-bottom: 0.5em; /* Spacing below the numbers */
+    text-align: center;
+}
+
+/* 10. "Remaining Time" Text Styles */
+#remainingTimeText {
+    font-size: 1.5em; /* Slightly smaller */
+    margin-bottom: 2em; /* Spacing below the text */
+    color: var(--text-color, #333333);
+}
+
+/* 11. Countdown Footer Styles */
+.countdown-footer {
+    position: absolute;
+    bottom: 20px;
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1em; /* Add horizontal padding */
+}
+
+/* 12. Exit Button Styles */
+#exitButton {
+    padding: 0.5em 1em;
+    background-color: rgba(255, 77, 77, 0.8); /* Reduced opacity */
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+#exitButton:hover {
+    background-color: rgba(204, 0, 0, 0.8); /* Reduced opacity on hover */
+}
+
+/* 13. Theme Selector Styles */
+.theme-selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.theme-selector label {
+    margin-bottom: 0.3em;
+    font-size: 0.9em;
+    color: var(--text-color, #333333);
+}
+
+.theme-selector select {
+    padding: 0.3em;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background-color: var(--select-bg-color, #ffffff);
+    color: var(--select-text-color, #333333);
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 0.9em; /* Slightly smaller font */
+}
+
+/* 14. Fade-in Animation for Countdown Screen */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* 15. Responsive Adjustments for Smaller Screens */
+@media (max-width: 600px) {
+    #timeDisplay {
+        font-size: 4em; /* Adjust for smaller screens */
+    }
+
+    #remainingTimeText {
+        font-size: 1.2em;
+    }
+
+    #exitButton, .theme-selector select {
+        font-size: 0.8em;
+        padding: 0.4em 0.8em;
+    }
+
+    .countdown-footer {
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .theme-selector {
+        width: 100%;
+    }
+}
