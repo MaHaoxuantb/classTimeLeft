@@ -7,7 +7,7 @@
     <title>Class Countdown Timer</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
-    <!-- Default theme is loaded initially -->
+    <!-- Theme Stylesheet with unique ID -->
     <link id="theme-link" rel="stylesheet" href="themes/default.css">
 </head>
 <body>
@@ -39,12 +39,12 @@
         <!-- "Remaining Time" Text -->
         <h2 id="remainingTimeText">Remaining Time</h2>
         
-        <!-- Footer: Exit Button and Theme Selector -->
+        <!-- Countdown Footer: Exit Button and Theme Selector -->
         <div class="countdown-footer">
             <button id="exitButton" aria-label="Exit Countdown">Exit</button>
             <div class="theme-selector">
                 <label for="themeSelectCountdown">Theme:</label>
-                <select id="themeSelectCountdown" aria-label="Select Theme">
+                <select id="themeSelectCountdown">
                     <option value="default">Default</option>
                     <option value="dark">Dark</option>
                     <option value="solarized">Solarized</option>

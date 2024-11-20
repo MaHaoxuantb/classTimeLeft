@@ -13,6 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeLink = document.getElementById('theme-link');
     let countdownInterval;
 
+    // Function to apply a theme by changing the href of the theme link
+    function applyTheme(theme) {
+        themeLink.href = `themes/${theme}.css`;
+    }
+
     // Load stored theme or default
     const storedTheme = localStorage.getItem('selectedTheme') || 'default';
     applyTheme(storedTheme);
@@ -97,11 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Update setup screen theme selector
             themeSelect.value = selectedTheme;
         });
-    }
-
-    // Function to apply a theme
-    function applyTheme(theme) {
-        themeLink.href = `themes/${theme}.css`;
     }
 
     // Function to start the countdown
