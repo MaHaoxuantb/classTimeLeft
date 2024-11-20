@@ -11,11 +11,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeSelectCountdown = document.getElementById('themeSelectCountdown');
     const alarmSound = document.getElementById('alarmSound');
     const themeLink = document.getElementById('theme-link');
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     let countdownInterval;
 
-    // Function to apply a theme by changing the href of the theme link
+    // Define theme colors corresponding to each theme
+    const themeColors = {
+        default: '#007BFF',      // Default Theme Color
+        dark: '#1f6feb',         // Dark Theme Color
+        solarized: '#268bd2',    // Solarized Theme Color
+        monokai: '#66d9ef'       // Monokai Theme Color
+    };
+
+    // Function to apply a theme by changing the href of the theme link and updating meta theme-color
     function applyTheme(theme) {
+        // Update the theme CSS file
         themeLink.href = `themes/${theme}.css`;
+
+        // Update the meta theme-color
+        if (themeColors[theme]) {
+            metaThemeColor.setAttribute('content', themeColors[theme]);
+        }
     }
 
     // Load stored theme or default

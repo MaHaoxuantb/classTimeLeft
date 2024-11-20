@@ -1,6 +1,6 @@
 // sw.js
 
-const CACHE_NAME = 'time-counter-cache-v1';
+const CACHE_NAME = 'time-counter-cache-v2'; // 更新版本号以确保新资源被缓存
 const urlsToCache = [
     '/',
     '/index.html',
