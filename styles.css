@@ -22,7 +22,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition for theme changes */
 }
 
@@ -34,41 +34,51 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 90%;
-    max-width: 400px;
+    max-width: 500px; /* Increased max-width to accommodate tabs */
     transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition */
+    position: relative;
 }
 
-/* 5. Countdown Container Styles */
-.countdown-container {
-    background-color: var(--countdown-bg-color, #000000);
-    color: var(--countdown-text-color, #00FF00);
-    
-    /* Ensure full coverage */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden; /* Prevent inner overflow */
-    
-    border-radius: 0;
-    box-shadow: none;
+/* 5. Tab Navigation Styles */
+.tabs {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    animation: fadeIn 0.5s ease;
-    transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition */
-}
-
-/* 6. Header Styles */
-h1 {
     margin-bottom: 1em;
-    color: var(--header-text-color, #333333);
-    transition: color 0.5s ease; /* Smooth color transition */
+    border-bottom: 2px solid #ccc;
 }
 
-/* 7. Form Styles */
+.tab-button {
+    background: none;
+    border: none;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    font-size: 1em;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    outline: none;
+    color: var(--text-color, #333333);
+}
+
+.tab-button.active {
+    border-bottom: 3px solid var(--button-bg-color, #007BFF);
+    color: var(--button-bg-color, #007BFF);
+}
+
+/* 6. Tab Content Styles */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* 7. Details Section Styles */
+.details {
+    padding-top: 3.2em;
+    color: #555555;
+}
+
+/* 8. Form Styles */
 form {
     margin-bottom: 2em;
 }
@@ -91,7 +101,7 @@ input[type="time"] {
     transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition */
 }
 
-/* 8. Button Styles */
+/* 9. Button Styles */
 button {
     padding: 0.5em 1em;
     background-color: var(--button-bg-color, #007BFF);
@@ -107,7 +117,37 @@ button:hover {
     background-color: var(--button-hover-bg-color, #0056b3);
 }
 
-/* 9. Time Display Styles */
+/* 10. Countdown Container Styles */
+.countdown-container {
+    background-color: var(--countdown-bg-color, #000000);
+    color: var(--countdown-text-color, #00FF00);
+    
+    /* Ensure full coverage */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden; /* Prevent inner overflow */
+    
+    border-radius: 0;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.5s ease;
+    transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition */
+}
+
+/* 11. Header Styles */
+h1 {
+    margin-bottom: 1em;
+    color: var(--header-text-color, #333333);
+    transition: color 0.5s ease; /* Smooth color transition */
+}
+
+/* 12. Time Display Styles */
 #timeDisplay {
     font-size: 6em; /* Increased size */
     font-weight: bold;
@@ -117,7 +157,7 @@ button:hover {
     transition: color 0.5s ease; /* Smooth color transition */
 }
 
-/* 10. "Remaining Time" Text Styles */
+/* 13. "Remaining Time" Text Styles */
 #remainingTimeText {
     font-size: 1.5em; /* Slightly smaller */
     margin-bottom: 2em; /* Spacing below the text */
@@ -125,7 +165,7 @@ button:hover {
     transition: color 0.5s ease; /* Smooth color transition */
 }
 
-/* 11. Countdown Footer Styles */
+/* 14. Countdown Footer Styles */
 .countdown-footer {
     position: absolute;
     bottom: 20px;
@@ -137,7 +177,7 @@ button:hover {
     padding: 0 1em; /* Add horizontal padding */
 }
 
-/* 12. Exit Button Styles */
+/* 15. Exit Button Styles */
 #exitButton {
     padding: 0.5em 1em;
     background-color: var(--exit-button-bg-color, rgba(255, 77, 77, 0.8)); /* From CSS variables */
@@ -153,7 +193,7 @@ button:hover {
     background-color: var(--exit-button-hover-bg-color, rgba(204, 0, 0, 0.8)); /* From CSS variables */
 }
 
-/* 13. Theme Selector Styles */
+/* 16. Theme Selector Styles */
 .theme-selector {
     display: flex;
     flex-direction: column;
@@ -178,13 +218,47 @@ button:hover {
     font-size: 0.9em; /* Slightly smaller font */
 }
 
-/* 14. Fade-in Animation for Countdown Screen */
+/* 17. Current Time and Class Status Styles */
+#currentTime {
+    font-size: 1.2em;
+    margin-bottom: 1em;
+    transition: color 0.5s ease; /* Smooth color transition */
+}
+
+#currentClass {
+    font-size: 1.2em;
+    margin-bottom: 1em;
+    transition: color 0.5s ease; /* Smooth color transition */
+}
+
+/* 18. Start Countdown Button Styles */
+#startCountdownButton {
+    padding: 0.7em 1.5em;
+    background-color: var(--button-bg-color, #007BFF);
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+#startCountdownButton:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+#startCountdownButton:not(:disabled):hover {
+    background-color: var(--button-hover-bg-color, #0056b3);
+}
+
+/* 19. Fade-in Animation for Countdown Screen */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
-/* 15. Responsive Adjustments for Smaller Screens */
+/* 20. Responsive Adjustments for Smaller Screens */
 @media (max-width: 600px) {
     #timeDisplay {
         font-size: 4em; /* Adjust for smaller screens */
@@ -194,7 +268,7 @@ button:hover {
         font-size: 1.2em;
     }
 
-    #exitButton, .theme-selector select {
+    #exitButton, .theme-selector select, #startCountdownButton {
         font-size: 0.8em;
         padding: 0.4em 0.8em;
     }
@@ -207,9 +281,13 @@ button:hover {
     .theme-selector {
         width: 100%;
     }
-}
 
-.details {
-    padding: 3.2em;
-    color:#555555;
+    .tabs {
+        flex-direction: column;
+        gap: 0.5em;
+    }
+
+    .tab-button {
+        width: 100%;
+    }
 }

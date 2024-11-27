@@ -1,6 +1,6 @@
 // sw.js
 
-const CACHE_NAME = 'time-counter-cache-v2'; // 更新版本号以确保新资源被缓存
+const CACHE_NAME = 'time-counter-cache-v3.1'; // 更新版本号以确保新资源被缓存
 const urlsToCache = [
     '/',
     '/index.html',
@@ -16,21 +16,31 @@ const urlsToCache = [
     '/themes/monokai.css'
 ];
 
+// Install Event
 self.addEventListener('install', event => {
+    console.log('Service Worker: Install Event');
     event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => {
-                console.log('Opened cache');
-                return cache.addAll(urlsToCache);
-            })
+        (async () => {
+            const cache = await caches.open(CACHE_NAME);
+            try {
+                for (const url of urlsToCache) {
+                    console.log(`Service Worker: Caching ${url}`);
+                    await cache.add(url);
+                }
+                console.log('Service Worker: All resources cached successfully');
+            } catch (error) {
+                console.error('Service Worker: Failed to cache resources', error);
+                throw error; // 这将导致 install 失败
+            }
+        })()
     );
 });
 
+// Fetch Event
 self.addEventListener('fetch', event => {
     event.respondWith(
         caches.match(event.request)
             .then(response => {
-                // Cache hit - return response
                 if (response) {
                     return response;
                 }
@@ -39,13 +49,16 @@ self.addEventListener('fetch', event => {
     );
 });
 
+// Activate Event
 self.addEventListener('activate', event => {
+    console.log('Service Worker: Activate Event');
     const cacheWhitelist = [CACHE_NAME];
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(
                 cacheNames.map(cacheName => {
                     if (!cacheWhitelist.includes(cacheName)) {
+                        console.log(`Service Worker: Deleting old cache ${cacheName}`);
                         return caches.delete(cacheName);
                     }
                 })

@@ -1,6 +1,6 @@
 <!-- index.html -->
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,30 +10,46 @@
     <!-- Theme Stylesheet with unique ID -->
     <link id="theme-link" rel="stylesheet" href="themes/default.css">
     <!-- Meta Theme Color -->
-    <meta name="theme-color" content="#007BFF"> <!-- 默认主题颜色 -->
+    <meta name="theme-color" content="#007BFF"> <!-- Default theme color -->
 </head>
 <body>
     <!-- Setup Screen -->
     <div class="container" id="setupScreen">
         <h1>Class Countdown Timer</h1>
-        <form id="timeForm">
-            <label for="endTime">Enter Class End Time (Format: HH:MM, e.g., 15:30):</label>
-            <input type="time" id="endTime" required>
-            <button type="submit">Start Countdown</button>
-        </form>
-        <!-- Theme Selection Dropdown -->
-        <div class="theme-selector">
-            <label for="themeSelect">Select Theme:</label>
-            <select id="themeSelect">
-                <option value="default">Default</option>
-                <option value="dark">Dark</option>
-                <option value="solarized">Solarized</option>
-                <option value="monokai">Monokai</option>
-            </select>
+        
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button class="tab-button active" data-tab="setTime">Set Time</button>
+            <button class="tab-button" data-tab="classStatus">Class Status</button>
         </div>
-        <div class="details">
-            <p>This web apps belongs to ThomasB.</p><br>
-            <a href="https://github.com/MaHaoxuantb/classTimeLeft">open source github link</a>
+        
+        <!-- Tab Contents -->
+        <div class="tab-content active" id="setTime">
+            <form id="timeForm">
+                <label for="endTime">Enter Class End Time (Format: HH:MM, e.g., 15:30):</label>
+                <input type="time" id="endTime" required>
+                <button type="submit">Start Countdown</button>
+            </form>
+            <!-- Theme Selection Dropdown -->
+            <div class="theme-selector">
+                <label for="themeSelect">Select Theme:</label>
+                <select id="themeSelect">
+                    <option value="default">Default</option>
+                    <option value="dark">Dark</option>
+                    <option value="solarized">Solarized</option>
+                    <option value="monokai">Monokai</option>
+                </select>
+            </div>
+            <div class="details">
+                <p>This web app belongs to ThomasB.</p><br>
+                <a href="https://github.com/MaHaoxuantb/classTimeLeft" target="_blank" rel="noopener noreferrer">Open Source GitHub Link</a>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="classStatus">
+            <p id="currentTime">Current Time: --:--:--</p>
+            <p id="currentClass">Current Status: --</p>
+            <button id="startCountdownButton">Start Countdown</button>
         </div>
     </div>
 
