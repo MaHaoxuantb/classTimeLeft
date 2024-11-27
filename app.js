@@ -63,7 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'P8', start: '13:55', end: '14:40' },
         { name: 'P9', start: '14:50', end: '15:35' },
         { name: 'P10', start: '15:40', end: '16:25' },
-        { name: 'P11', start: '16:30', end: '17:15' }
+        { name: 'P11', start: '16:30', end: '17:15' },
+        { name: 'Welcome to night, child', start: '22:15', end: '6:10' }
     ];
 
     // Function to parse time string "HH:MM" into Date object (today's date)
