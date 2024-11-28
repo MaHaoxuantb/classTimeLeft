@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'P2', start: '08:50', end: '09:35' },
         { name: 'P3', start: '09:45', end: '10:30' },
         { name: 'P4', start: '10:40', end: '11:25' },
-        { name: 'P5', start: '11:30', end: '12:10' },
+        { name: 'P5', start: '11:30', end: '12:15' },
         { name: 'P6', start: '12:15', end: '13:00' },
         { name: 'P7', start: '13:05', end: '13:50' },
         { name: 'P8', start: '13:55', end: '14:40' },
