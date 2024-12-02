@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (distance < 0) {
                 clearInterval(countdownInterval);
-                timeDisplay.textContent = "Class has ended!";
+                timeDisplay.textContent = "Time's up!";
                 console.log('Countdown finished');
 
                 // Play alarm sound
