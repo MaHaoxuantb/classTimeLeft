@@ -1,0 +1,88 @@
+/* themes/pink.css */
+
+:root {
+    /* Shared Section Colors */
+    --shared-bg-color: #ffeef0; /* Light pink background */
+    --text-color: #333333; /* Dark text */
+    --select-bg-color: #ffeef0; /* Light pink select background */
+    --select-text-color: #333333; /* Dark select text */
+    --link-color: #ff66b2; /* Pinkish link color */
+
+    /* Other Theme Variables */
+    --background-color: #fce8f0;
+    --countdown-bg-color: #ffeef0; /* Light pink background for countdown screen */
+    --countdown-text-color: #ff66b2; /* Pinkish text for countdown */
+    --button-bg-color: #ff66b2; /* Pink button */
+    --button-hover-bg-color: #ff3385; /* Darker pink on hover */
+    --exit-button-bg-color: rgba(255, 77, 77, 0.8);
+    --exit-button-hover-bg-color: rgba(204, 0, 0, 0.8);
+    --header-text-color: #333333;
+}
+
+/* General Body Styles */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+}
+
+/* Links */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Buttons */
+button {
+    background-color: var(--button-bg-color);
+    color: #ffffff;
+    border-radius: 4px;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+/* Card */
+.card {
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 5px var(--card-box-shadow);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* Select Element */
+select {
+    background-color: var(--select-bg-color);
+    color: var(--select-text-color);
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #444;
+}
+
+/* Countdown Screen */
+.countdown-container {
+    background-color: var(--countdown-bg-color);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#timeDisplay {
+    color: var(--countdown-text-color);
+    font-size: 6rem;
+}
+
+/* Header */
+.header {
+    background-color: #272822;
+    box-shadow: 0 4px 6px var(--card-box-shadow);
+}
