@@ -24,6 +24,7 @@ body {
     align-items: center;
     min-height: 100vh;
     transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition for theme changes */
+    flex-direction: column; /* Allow stacking of setupScreen and shared sections */
 }
 
 /* 4. Container Styles for Setup Screen */
@@ -37,6 +38,9 @@ body {
     max-width: 500px; /* Increased max-width to accommodate tabs */
     transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition */
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* 5. Tab Navigation Styles */
@@ -45,6 +49,7 @@ body {
     justify-content: center;
     margin-bottom: 1em;
     border-bottom: 2px solid #ccc;
+    width: 100%;
 }
 
 .tab-button {
@@ -66,19 +71,66 @@ body {
 /* 6. Tab Content Styles */
 .tab-content {
     display: none;
+    width: 100%;
 }
 
 .tab-content.active {
     display: block;
 }
 
-/* 7. Details Section Styles */
-.details {
-    padding-top: 3.2em;
-    color: #555555;
+/* 7. Shared Section Styles */
+.shared-section {
+    background-color: var(--shared-bg-color, #ffffff);
+    padding: 1em;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 1.5em auto 0 auto; /* Top margin for spacing, auto for horizontal centering */
+    width: 90%;
+    max-width: 500px; /* Match the container's max-width */
+    transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition for theme changes */
 }
 
-/* 8. Form Styles */
+/* Ensure labels, paragraphs, and links are centered within shared sections */
+.shared-section label,
+.shared-section p,
+.shared-section a {
+    display: block;
+    text-align: center;
+    margin-bottom: 0.5em;
+    color: var(--text-color, #333333);
+    transition: color 0.5s ease; /* Smooth color transition */
+}
+
+/* Adjust the width of the select dropdown */
+.shared-section select {
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background-color: var(--select-bg-color, #ffffff);
+    color: var(--select-text-color, #333333);
+    cursor: pointer;
+    transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition */
+    font-size: 0.9em; /* Slightly smaller font */
+}
+
+/* Adjust link styles */
+.shared-section a {
+    color: var(--link-color, #007BFF);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.shared-section a:hover {
+    text-decoration: underline;
+}
+
+/* 8. Details Section Styles */
+.details {
+    /* Inherits styles from .shared-section */
+}
+
+/* 9. Form Styles */
 form {
     margin-bottom: 2em;
 }
@@ -101,7 +153,7 @@ input[type="time"] {
     transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition */
 }
 
-/* 9. Button Styles */
+/* 10. Button Styles */
 button {
     padding: 0.5em 1em;
     background-color: var(--button-bg-color, #007BFF);
@@ -117,7 +169,7 @@ button:hover {
     background-color: var(--button-hover-bg-color, #0056b3);
 }
 
-/* 10. Countdown Container Styles */
+/* 11. Countdown Container Styles */
 .countdown-container {
     background-color: var(--countdown-bg-color, #000000);
     color: var(--countdown-text-color, #00FF00);
@@ -140,16 +192,16 @@ button:hover {
     transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition */
 }
 
-/* 11. Header Styles */
+/* 12. Header Styles */
 h1 {
     margin-bottom: 1em;
     color: var(--header-text-color, #333333);
     transition: color 0.5s ease; /* Smooth color transition */
 }
 
-/* 12. Time Display Styles */
+/* 13. Time Display Styles */
 #timeDisplay {
-    font-size: 6em; /* Increased size */
+    font-size: 10em; /* Increased size */
     font-weight: bold;
     color: var(--countdown-text-color, #00FF00);
     margin-bottom: 0.5em; /* Spacing below the numbers */
@@ -157,7 +209,7 @@ h1 {
     transition: color 0.5s ease; /* Smooth color transition */
 }
 
-/* 13. "Remaining Time" Text Styles */
+/* 14. "Remaining Time" Text Styles */
 #remainingTimeText {
     font-size: 1.5em; /* Slightly smaller */
     margin-bottom: 2em; /* Spacing below the text */
@@ -165,19 +217,19 @@ h1 {
     transition: color 0.5s ease; /* Smooth color transition */
 }
 
-/* 14. Countdown Footer Styles */
+/* 15. Countdown Footer Styles */
 .countdown-footer {
     position: absolute;
     bottom: 20px;
     width: 90%;
-    max-width: 400px;
+    max-width: 500px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 1em; /* Add horizontal padding */
 }
 
-/* 15. Exit Button Styles */
+/* 16. Exit Button Styles */
 #exitButton {
     padding: 0.5em 1em;
     background-color: var(--exit-button-bg-color, rgba(255, 77, 77, 0.8)); /* From CSS variables */
@@ -193,7 +245,7 @@ h1 {
     background-color: var(--exit-button-hover-bg-color, rgba(204, 0, 0, 0.8)); /* From CSS variables */
 }
 
-/* 16. Theme Selector Styles */
+/* 17. Theme Selector Styles for Countdown Screen */
 .theme-selector {
     display: flex;
     flex-direction: column;
@@ -218,7 +270,7 @@ h1 {
     font-size: 0.9em; /* Slightly smaller font */
 }
 
-/* 17. Current Time and Class Status Styles */
+/* 18. Current Time and Class Status Styles */
 #currentTime {
     font-size: 1.2em;
     margin-bottom: 1em;
@@ -231,7 +283,7 @@ h1 {
     transition: color 0.5s ease; /* Smooth color transition */
 }
 
-/* 18. Start Countdown Button Styles */
+/* 19. Start Countdown Button Styles */
 #startCountdownButton {
     padding: 0.7em 1.5em;
     background-color: var(--button-bg-color, #007BFF);
@@ -252,13 +304,13 @@ h1 {
     background-color: var(--button-hover-bg-color, #0056b3);
 }
 
-/* 19. Fade-in Animation for Countdown Screen */
+/* 20. Fade-in Animation for Countdown Screen */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
-/* 20. Responsive Adjustments for Smaller Screens */
+/* 21. Responsive Adjustments for Smaller Screens */
 @media (max-width: 600px) {
     #timeDisplay {
         font-size: 4em; /* Adjust for smaller screens */
@@ -289,5 +341,14 @@ h1 {
 
     .tab-button {
         width: 100%;
+    }
+
+    .shared-section {
+        padding: 0.8em;
+        width: 95%;
+    }
+
+    .shared-section select {
+        padding: 0.4em;
     }
 }

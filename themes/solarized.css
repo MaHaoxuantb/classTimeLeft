@@ -1,16 +1,90 @@
 /* themes/solarized.css */
 
 :root {
+    /* Shared Section Colors */
+    --shared-bg-color: #fdf6e3; /* Light background */
+    --text-color: #657b83; /* Soft dark text */
+    --select-bg-color: #eee8d5; /* Light select background */
+    --select-text-color: #657b83; /* Soft dark select text */
+    --link-color: #2aa198; /* Turquoise links */
+
+    /* Other Theme Variables */
     --background-color: #fdf6e3;
-    --text-color: #657b83;
-    --button-bg-color: #268bd2;
-    --button-hover-bg-color: #00629b;
     --countdown-bg-color: #eee8d5;
     --countdown-text-color: #586e75;
-    --header-bg-color: #3e3d32;
-    --header-text-color: #586e75;
-    --select-bg-color: #eee8d5;
-    --select-text-color: #586e75;
+    --button-bg-color: #268bd2;
+    --button-hover-bg-color: #2aa198;
     --exit-button-bg-color: rgba(255, 77, 77, 0.8);
     --exit-button-hover-bg-color: rgba(204, 0, 0, 0.8);
+    --header-text-color: #657b83;
+    --card-bg-color: #fdf6e3;
+    --card-box-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* General Body Styles */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+}
+
+/* Links */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Buttons */
+button {
+    background-color: var(--button-bg-color);
+    color: #ffffff;
+    border-radius: 4px;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+/* Card */
+.card {
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 5px var(--card-box-shadow);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* Select Element */
+select {
+    background-color: var(--select-bg-color);
+    color: var(--select-text-color);
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* Countdown Screen */
+.countdown-container {
+    background-color: var(--countdown-bg-color);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#timeDisplay {
+    color: var(--countdown-text-color);
+    font-size: 6rem;
+}
+
+/* Header */
+.header {
+    background-color: #fdf6e3;
+    box-shadow: 0 4px 6px var(--card-box-shadow);
 }

@@ -30,20 +30,6 @@
                 <input type="time" id="endTime" required>
                 <button type="submit">Start Countdown</button>
             </form>
-            <!-- Theme Selection Dropdown -->
-            <div class="theme-selector">
-                <label for="themeSelect">Select Theme:</label>
-                <select id="themeSelect">
-                    <option value="default">Default</option>
-                    <option value="dark">Dark</option>
-                    <option value="solarized">Solarized</option>
-                    <option value="monokai">Monokai</option>
-                </select>
-            </div>
-            <div class="details">
-                <p>This web app belongs to ThomasB.</p><br>
-                <a href="https://github.com/MaHaoxuantb/classTimeLeft" target="_blank" rel="noopener noreferrer">Open Source GitHub Link</a>
-            </div>
         </div>
         
         <div class="tab-content" id="classStatus">
@@ -53,15 +39,32 @@
         </div>
     </div>
 
+    <!-- Shared Theme Selection Section -->
+    <div class="shared-section theme-selector">
+        <label for="themeSelect">Select Theme:</label>
+        <select id="themeSelect">
+            <option value="default">Default</option>
+            <option value="dark">Dark</option>
+            <option value="solarized">Solarized</option>
+            <option value="monokai">Monokai</option>
+        </select>
+    </div>
+    
+    <!-- Shared Details Section -->
+    <div class="shared-section details">
+        <p>Copyright 2022~
+            <span id="copyright-year"></span>
+            @ThomasB
+        </p>
+        <br>
+        <a href="https://github.com/MaHaoxuantb/classTimeLeft" target="_blank" rel="noopener noreferrer">Open Source GitHub Link</a>
+    </div>
+
     <!-- Countdown Screen -->
     <div class="countdown-container" id="countdownScreen" style="display: none;">
-        <!-- Time Display -->
+        <!-- Countdown Screen Content -->
         <p id="timeDisplay">00:00:00</p>
-        
-        <!-- "Remaining Time" Text -->
         <h2 id="remainingTimeText">Remaining Time</h2>
-        
-        <!-- Countdown Footer: Exit Button and Theme Selector -->
         <div class="countdown-footer">
             <button id="exitButton" aria-label="Exit Countdown">Exit</button>
             <div class="theme-selector">
@@ -74,10 +77,14 @@
                 </select>
             </div>
         </div>
-        
-        <!-- Audio Element for Notifications -->
         <audio id="alarmSound" src="alarm.mp3" preload="auto"></audio>
     </div>
+
+    <script>
+        // 获取当前年份并设置到页面中
+        document.getElementById("copyright-year")
+            .textContent = new Date().getFullYear();
+    </script>
 
     <script src="app.js"></script>
 </body>

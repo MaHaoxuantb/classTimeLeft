@@ -1,16 +1,90 @@
 /* themes/default.css */
 
 :root {
+    /* Shared Section Colors */
+    --shared-bg-color: #ffffff; /* White background */
+    --text-color: #333333; /* Dark text */
+    --select-bg-color: #ffffff; /* White select background */
+    --select-text-color: #333333; /* Dark select text */
+    --link-color: #007BFF; /* Blue links */
+
+    /* Other Theme Variables */
     --background-color: #f0f4f8;
-    --text-color: #333333;
+    --countdown-bg-color: #ffffff;
+    --countdown-text-color: #000000;
     --button-bg-color: #007BFF;
     --button-hover-bg-color: #0056b3;
-    --countdown-bg-color: #ffffff;
-    --countdown-text-color: #333333;
-    --header-bg-color: #3e3d32;
-    --header-text-color: #333333;
-    --select-bg-color: #ffffff;
-    --select-text-color: #333333;
     --exit-button-bg-color: rgba(255, 77, 77, 0.8);
     --exit-button-hover-bg-color: rgba(204, 0, 0, 0.8);
+    --header-text-color: #333333;
+    --card-bg-color: #ffffff;
+    --card-box-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* General Body Styles */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+}
+
+/* Links */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Buttons */
+button {
+    background-color: var(--button-bg-color);
+    color: #ffffff;
+    border-radius: 4px;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+/* Card */
+.card {
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 5px var(--card-box-shadow);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* Select Element */
+select {
+    background-color: var(--select-bg-color);
+    color: var(--select-text-color);
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* Countdown Screen */
+.countdown-container {
+    background-color: var(--countdown-bg-color);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#timeDisplay {
+    color: var(--countdown-text-color);
+    font-size: 8rem;
+}
+
+/* Header */
+.header {
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px var(--card-box-shadow);
 }

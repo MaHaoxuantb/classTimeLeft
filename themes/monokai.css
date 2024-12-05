@@ -1,16 +1,90 @@
 /* themes/monokai.css */
 
 :root {
+    /* Shared Section Colors */
+    --shared-bg-color: #272822; /* Dark background */
+    --text-color: #f8f8f2; /* Light text */
+    --select-bg-color: #3e3d32; /* Dark select background */
+    --select-text-color: #f8f8f2; /* Light select text */
+    --link-color: #66d9ef; /* Light cyan links */
+
+    /* Other Theme Variables */
     --background-color: #272822;
-    --text-color: #f8f8f2;
-    --button-bg-color: #66d9ef;
-    --button-hover-bg-color: #38a1f3;
     --countdown-bg-color: #3e3d32;
     --countdown-text-color: #f8f8f2;
-    --header-bg-color: #3e3d32;
+    --button-bg-color: #f92672;
+    --button-hover-bg-color: #d41d55;
+    --exit-button-bg-color: rgba(255, 77, 77, 0.8);
+    --exit-button-hover-bg-color: rgba(204, 0, 0, 0.8);
     --header-text-color: #f8f8f2;
-    --select-bg-color: #3e3d32;
-    --select-text-color: #f8f8f2;
-    --exit-button-bg-color: #ff4d4d;
-    --exit-button-hover-bg-color: #cc0000;
+    --card-bg-color: #3e3d32;
+    --card-box-shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* General Body Styles */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+}
+
+/* Links */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Buttons */
+button {
+    background-color: var(--button-bg-color);
+    color: #ffffff;
+    border-radius: 4px;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: var(--button-hover-bg-color);
+}
+
+/* Card */
+.card {
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 5px var(--card-box-shadow);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* Select Element */
+select {
+    background-color: var(--select-bg-color);
+    color: var(--select-text-color);
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #444;
+}
+
+/* Countdown Screen */
+.countdown-container {
+    background-color: var(--countdown-bg-color);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#timeDisplay {
+    color: var(--countdown-text-color);
+    font-size: 6rem;
+}
+
+/* Header */
+.header {
+    background-color: #272822;
+    box-shadow: 0 4px 6px var(--card-box-shadow);
 }
