@@ -203,7 +203,7 @@ h1 {
 #timeDisplay {
     font-size: 10em; /* Increased size */
     font-weight: bold;
-    color: var(--countdown-text-color, #00FF00);
+    color: var(--countdown-text-color, #e7ffe7);
     margin-bottom: 0.5em; /* Spacing below the numbers */
     text-align: center;
     transition: color 0.5s ease; /* Smooth color transition */
