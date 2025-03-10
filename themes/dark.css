@@ -6,14 +6,14 @@
     --text-color: #f0f0f0; /* Light text */
     --select-bg-color: #444444; /* Dark select background */
     --select-text-color: #f0f0f0; /* Light select text */
-    --link-color: #006400; /* Changed to Dark Green */
+    --link-color: #6fbd6f; /* Changed to Dark Green */
 
     /* Other Theme Variables */
     --background-color: #121212;
     --countdown-bg-color: #333333;
     --countdown-text-color: #ffffff;
-    --button-bg-color: #006400; /* Changed to Dark Green */
-    --button-hover-bg-color: #004d00; /* Darker Green on hover */
+    --button-bg-color: #6fbd6f; /* Changed to Dark Green */
+    --button-hover-bg-color: #6fbd6f; /* Darker Green on hover */
     --exit-button-bg-color: rgba(255, 77, 77, 0.8);
     --exit-button-hover-bg-color: rgba(204, 0, 0, 0.8);
     --header-text-color: #ffffff;
@@ -90,7 +90,7 @@ select {
 .header {
     background-color: #1f1f1f;
     box-shadow: 0 4px 6px var(--card-box-shadow);
-    color: var (--header-text-color);
+    color: var(--header-text-color);
     padding: 10px;
     text-align: center;
     position: sticky;
@@ -107,6 +107,6 @@ select {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-.exit-button:hover {
+exit-button:hover {
     background-color: var(--exit-button-hover-bg-color);
 }
