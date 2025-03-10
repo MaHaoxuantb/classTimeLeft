@@ -6,14 +6,14 @@
     --text-color: #333333; /* Dark text */
     --select-bg-color: #ffeef0; /* Light pink select background */
     --select-text-color: #333333; /* Dark select text */
-    --link-color: #ff66b2; /* Pinkish link color */
+    --link-color: #be6f97; /* Pinkish link color */
 
     /* Other Theme Variables */
     --background-color: #fce8f0;
     --countdown-bg-color: #ffeef0; /* Light pink background for countdown screen */
-    --countdown-text-color: #ff66b2; /* Pinkish text for countdown */
-    --button-bg-color: #ff66b2; /* Pink button */
-    --button-hover-bg-color: #ff3385; /* Darker pink on hover */
+    --countdown-text-color: #c04b86; /* Pinkish text for countdown */
+    --button-bg-color: #cc6196; /* Pink button */
+    --button-hover-bg-color: #cc487d; /* Darker pink on hover */
     --exit-button-bg-color: rgba(255, 77, 77, 0.8);
     --exit-button-hover-bg-color: rgba(204, 0, 0, 0.8);
     --header-text-color: #333333;
