@@ -61,7 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
      * @param {string} theme - 要应用的主题名称
      */
     function applyTheme(theme) {
-        themeLink.href = `themes/${theme}.css`;
+        // Force fresh loading of the CSS file by adding a cache-busting query parameter.
+        themeLink.href = `themes/${theme}.css?v=${Date.now()}`;
         console.log(`Applied theme: ${theme}`);
 
         // 更新 meta theme-color
