@@ -6,7 +6,7 @@
     --text-color: #333333; /* Dark text */
     --select-bg-color: #ffffff; /* White select background */
     --select-text-color: #333333; /* Dark select text */
-    --link-color: #007BFF; /* Blue links */
+    --link-color: #006400; /* Changed to Dark Green */
 
     /* Other Theme Variables */
     --background-color: #f0f4f8;
@@ -34,7 +34,6 @@ a {
     color: var(--link-color);
     text-decoration: none;
 }
-
 a:hover {
     text-decoration: underline;
 }
@@ -50,7 +49,6 @@ button {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
 button:hover {
     background-color: var(--button-hover-bg-color);
 }
@@ -83,7 +81,6 @@ select {
     align-items: center;
     justify-content: center;
 }
-
 #timeDisplay {
     color: var(--countdown-text-color);
     font-size: 8rem;
@@ -110,7 +107,6 @@ select {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
 .exit-button:hover {
     background-color: var(--exit-button-hover-bg-color);
 }

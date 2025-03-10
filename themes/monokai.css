@@ -6,14 +6,14 @@
     --text-color: #f8f8f2; /* Light text */
     --select-bg-color: #3e3d32; /* Dark select background */
     --select-text-color: #f8f8f2; /* Light select text */
-    --link-color: #66d9ef; /* Light cyan links */
+    --link-color: #8b7324; /* Changed to Gold */
 
     /* Other Theme Variables */
     --background-color: #272822;
     --countdown-bg-color: #3e3d32;
     --countdown-text-color: #f8f8f2;
-    --button-bg-color: #857f81;
-    --button-hover-bg-color: #7a636a;
+    --button-bg-color: #8b7324; /* Changed to Gold */
+    --button-hover-bg-color: #8b7324; /* Darker Gold on hover */
     --exit-button-bg-color: rgba(255, 77, 77, 0.8);
     --exit-button-hover-bg-color: rgba(204, 0, 0, 0.8);
     --header-text-color: #f8f8f2;
@@ -34,7 +34,6 @@ a {
     color: var(--link-color);
     text-decoration: none;
 }
-
 a:hover {
     text-decoration: underline;
 }
@@ -50,7 +49,6 @@ button {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
 button:hover {
     background-color: var(--button-hover-bg-color);
 }
@@ -83,7 +81,6 @@ select {
     align-items: center;
     justify-content: center;
 }
-
 #timeDisplay {
     color: var(--countdown-text-color);
     font-size: 6rem;
@@ -110,7 +107,6 @@ select {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
 .exit-button:hover {
     background-color: var(--exit-button-hover-bg-color);
 }

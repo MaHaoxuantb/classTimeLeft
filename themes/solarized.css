@@ -6,14 +6,14 @@
     --text-color: #657b83; /* Soft dark text */
     --select-bg-color: #eee8d5; /* Light select background */
     --select-text-color: #657b83; /* Soft dark select text */
-    --link-color: #2aa198; /* Turquoise links */
+    --link-color: #6B8E23; /* Changed to OliveDrab */
 
     /* Other Theme Variables */
     --background-color: #fdf6e3;
     --countdown-bg-color: #eee8d5;
     --countdown-text-color: #586e75;
-    --button-bg-color: #268bd2;
-    --button-hover-bg-color: #2aa198;
+    --button-bg-color: #6B8E23; /* Changed to OliveDrab */
+    --button-hover-bg-color: #556B2F; /* Darker OliveDrab on hover */
     --exit-button-bg-color: rgba(255, 77, 77, 0.8);
     --exit-button-hover-bg-color: rgba(204, 0, 0, 0.8);
     --header-text-color: #657b83;
@@ -34,7 +34,6 @@ a {
     color: var(--link-color);
     text-decoration: none;
 }
-
 a:hover {
     text-decoration: underline;
 }
@@ -50,7 +49,6 @@ button {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
 button:hover {
     background-color: var(--button-hover-bg-color);
 }
@@ -83,7 +81,6 @@ select {
     align-items: center;
     justify-content: center;
 }
-
 #timeDisplay {
     color: var(--countdown-text-color);
     font-size: 6rem;
@@ -93,7 +90,7 @@ select {
 .header {
     background-color: #fdf6e3;
     box-shadow: 0 4px 6px var(--card-box-shadow);
-    color: var(--header-text-color);
+    color: var (--header-text-color);
     padding: 10px;
     text-align: center;
     position: sticky;
@@ -110,7 +107,6 @@ select {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
 .exit-button:hover {
     background-color: var(--exit-button-hover-bg-color);
 }
