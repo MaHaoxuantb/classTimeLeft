@@ -17,6 +17,8 @@
     --exit-button-bg-color: rgba(255, 77, 77, 0.8);
     --exit-button-hover-bg-color: rgba(204, 0, 0, 0.8);
     --header-text-color: #333333;
+    --card-bg-color: #ffeef0;
+    --card-box-shadow: rgba(0, 0, 0, 0.1);
 }
 
 /* General Body Styles */
@@ -45,6 +47,8 @@ button {
     border: none;
     padding: 10px 20px;
     font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 button:hover {
@@ -74,6 +78,10 @@ select {
     background-color: var(--countdown-bg-color);
     padding: 20px;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 #timeDisplay {
@@ -83,6 +91,26 @@ select {
 
 /* Header */
 .header {
-    background-color: #272822;
+    background-color: var(--background-color);
     box-shadow: 0 4px 6px var(--card-box-shadow);
+    color: var(--header-text-color);
+    padding: 10px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+}
+
+.exit-button {
+    background-color: var(--exit-button-bg-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.exit-button:hover {
+    background-color: var(--exit-button-hover-bg-color);
 }
