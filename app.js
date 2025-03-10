@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabContents = document.querySelectorAll('.tab-content');
 
     // 设置屏幕相关的元素
+    const setupScreen = document.getElementById('setupScreen');
     const timeForm = document.getElementById('timeForm');
     const endTimeInput = document.getElementById('endTime');
 
@@ -127,18 +128,21 @@ document.addEventListener('DOMContentLoaded', () => {
      * 处理标签导航，通过激活选中的标签并显示相应内容
      */
     function handleTabNavigation() {
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // 移除所有按钮的 active 类
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                // 为点击的按钮添加 active 类
-                button.classList.add('active');
+        tabButtons.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.getAttribute('data-tab');
 
-                // 隐藏所有标签内容
+                // Remove active class from all tabs
+                tabButtons.forEach(t => t.classList.remove('active'));
+
+                // Hide all tab contents
                 tabContents.forEach(content => content.classList.remove('active'));
-                // 显示选中的标签内容
-                const selectedTab = button.getAttribute('data-tab');
-                document.getElementById(selectedTab).classList.add('active');
+
+                // Add active class to clicked tab and show corresponding content
+                tab.classList.add('active');
+                document.getElementById(target).classList.add('active');
+
+                console.log(`Switched to tab: ${target}`);
             });
         });
     }
@@ -384,100 +388,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /**
-     * Handle theme selection
-     */
-    // Theme selection handler for setup screen
-    themeSelect.addEventListener('change', (e) => {
-        const selectedTheme = e.target.value;
-        applyTheme(selectedTheme);
-        // Store the selected theme
-        localStorage.setItem('selectedTheme', selectedTheme);
-        console.log(`Theme selected: ${selectedTheme}`);
-        // Update countdown screen theme selector if exists
-        if (themeSelectCountdown) {
-            themeSelectCountdown.value = selectedTheme;
-        }
-    });
-
-    // Theme selection handler for countdown screen
-    if (themeSelectCountdown) {
-        themeSelectCountdown.addEventListener('change', (e) => {
-            const selectedTheme = e.target.value;
-            applyTheme(selectedTheme);
-            // Store the selected theme
-            localStorage.setItem('selectedTheme', selectedTheme);
-            console.log(`Theme selected: ${selectedTheme}`);
-            // Update setup screen theme selector
-            themeSelect.value = selectedTheme;
-        });
-    }
-
-    /**
-     * Handle tab navigation
-     */
-    function handleTabNavigation() {
-        tabButtons.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const target = tab.getAttribute('data-tab');
-
-                // Remove active class from all tabs
-                tabButtons.forEach(t => t.classList.remove('active'));
-
-                // Hide all tab contents
-                tabContents.forEach(content => content.classList.remove('active'));
-
-                // Add active class to clicked tab and show corresponding content
-                tab.classList.add('active');
-                document.getElementById(target).classList.add('active');
-
-                // Update currentTab variable
-                currentTab = target;
-                console.log(`Switched to tab: ${target}`);
-            });
-        });
-    }
-
-    /**
      * 初始化主题设置
      */
     loadStoredTheme();
     handleThemeSelection();
     handleTabNavigation();
-
-    /**
-     * 更新当前时间和课程状态
-     */
-    function updateClassStatus() {
-        const now = new Date();
-        const hours = pad(now.getHours());
-        const minutes = pad(now.getMinutes());
-        const seconds = pad(now.getSeconds());
-        currentTimeDisplay.textContent = `Current Time: ${hours}:${minutes}:${seconds}`;
-
-        const current = getCurrentClass();
-        currentClassDisplay.textContent = `Current Status: ${current.status}${current.className ? ' - ' + current.className : ''}`;
-
-        if (current.status === 'In Class') {
-            // 检查 localStorage 是否已有 endTime
-            if (!localStorage.getItem('endTime')) {
-                const endTime = current.endTime; // 已经是 Date 对象
-                if (endTime) {
-                    localStorage.setItem('endTime', endTime.toISOString());
-                    console.log('End Time set from class schedule:', endTime.toISOString());
-                } else {
-                    console.error('Failed to parse endTime from class schedule.');
-                }
-            }
-            startCountdownButton.disabled = false;
-            startCountdownButton.textContent = `Start Countdown (Ends at ${current.endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`;
-        } else {
-            startCountdownButton.disabled = true;
-            startCountdownButton.textContent = 'Break Time - Countdown Disabled';
-            // 如果不在课堂期间，清除 localStorage 中的 endTime
-            localStorage.removeItem('endTime');
-            console.log('End Time cleared from localStorage.');
-        }
-    }
 
     // 初始调用
     updateClassStatus();
