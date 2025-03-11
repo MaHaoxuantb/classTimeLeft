@@ -33,11 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 定义主题颜色对应关系
     const themeColors = {
-        default: '#007BFF',      // 默认主题颜色
-        dark: '#1f6feb',         // 深色主题颜色
-        solarized: '#268bd2',    // Solarized 主题颜色
-        monokai: '#66d9ef',      // Monokai 主题颜色
-        pink: '#ff66b2'           // 浅粉色主题颜色
+        default: '#ffffff',      // 默认主题颜色
+        dark: '#404040',         // 深色主题颜色
+        solarized: '#e6e4be',    // Solarized 主题颜色
+        monokai: '#8a896e',      // Monokai 主题颜色
+        pink: '#f5c1c1'           // 浅粉色主题颜色
     };
 
     // 定义课程表（示例时间表，可根据需要调整）
