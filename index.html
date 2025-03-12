@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
     <!-- Theme Stylesheet with unique ID -->
+    <link rel="stylesheet" href="ios-fixes.css">
     <link id="theme-link" rel="stylesheet" href="themes/default.css">
     <!-- iOS specific meta tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,31 +16,68 @@
     <meta name="theme-color" content="#007BFF"> <!-- Default theme color -->
     <!-- Apple status bar appearance -->
     <meta name="apple-mobile-web-app-title" content="Class Timer">
+    <!-- Google Fonts for improved typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Setup Screen -->
     <div class="container" id="setupScreen">
         <h1>Countdown Timer</h1>
         
-        <!-- Tab Navigation -->
-        <div class="tabs">
-            <button class="tab-button active" data-tab="setTime">Set Time</button>
-            <button class="tab-button" data-tab="classStatus">Class Status</button>
-        </div>
+        <!-- Enhanced Tab Navigation -->
+        <div class="tabs" role="tablist">
+            <button class="tab-button active" data-tab="setTime" role="tab" aria-selected="true" aria-controls="setTime">Set Time</button>
+            <button class="tab-button" data-tab="quickTime" role="tab" aria-selected="false" aria-controls="quickTime">Time Duration</button>
+            <button class="tab-button" data-tab="classStatus" role="tab" aria-selected="false" aria-controls="classStatus">Class Status</button>
+        </div>        
         
         <!-- Tab Contents -->
         <div class="tab-content active" id="setTime">
             <form id="timeForm">
                 <label for="endTime">Enter Class End Time (Format: HH:MM, e.g., 15:30):</label>
                 <input type="time" id="endTime" required>
-                <button type="submit">Start Countdown</button>
+                <div id="timeError" style="display:none; color: red; margin: 5px 0;">
+                    Please enter a valid time.
+                </div>
+                <button type="submit" class="primary-button">Start Countdown</button>
             </form>
+        </div>
+        
+        <!-- New Quick Time Tab -->
+        <div class="tab-content" id="quickTime">
+            <div class="quick-time-container">
+                <h3>Set countdown by duration</h3>
+                <div class="duration-inputs">
+                    <div class="duration-field">
+                        <label for="hours">Hours:</label>
+                        <input type="number" id="hours" min="0" max="24" value="0">
+                    </div>
+                    <div class="duration-field">
+                        <label for="minutes">Minutes:</label>
+                        <input type="number" id="minutes" min="0" max="59" value="0">
+                    </div>
+                </div>
+                <div id="durationError" style="display:none; color: red; margin: 5px 0;">
+                    Please enter at least 1 minute duration.
+                </div>
+                <div class="quick-presets">
+                    <button class="preset-btn" data-minutes="5">5 min</button>
+                    <button class="preset-btn" data-minutes="10">10 min</button>
+                    <button class="preset-btn" data-minutes="15">15 min</button>
+                    <button class="preset-btn" data-minutes="30">30 min</button>
+                    <button class="preset-btn" data-minutes="45">45 min</button>
+                    <button class="preset-btn" data-minutes="60">1 hour</button>
+                </div>
+                <button id="startQuickCountdown" class="primary-button">Start Quick Countdown</button>
+            </div>
         </div>
         
         <div class="tab-content" id="classStatus">
             <p id="currentTime">Current Time: --:--:--</p>
             <p id="currentClass">Current Status: --</p>
-            <button id="startCountdownButton">Start Countdown</button>
+            <button id="startCountdownButton" class="primary-button">Start Countdown</button>
         </div>
     </div>
 
@@ -52,7 +89,7 @@
             <option value="dark">Dark</option>
             <option value="solarized">Solarized</option>
             <option value="monokai">Monokai</option>
-            <option value="pink">Pink</option> <!-- New Pink theme -->
+            <option value="pink">Pink</option>
         </select>
     </div>
     
@@ -62,9 +99,15 @@
             <span id="copyright-year"></span>
             @ThomasB
         </p>
-        <p>This page is open source. Improve it: <a href="https://redirect.annopia.com?domain=github.com&path=MaHaoxuantb/classTimeLeft&originService=ThomasBInternetServices-Countdown" target="_blank" rel="noopener noreferrer">Github</a></p>
-        <a href="https://redirect.annopia.com?domain=thomasb.top&originService=ThomasBInternetServices-Countdown" target="_blank" rel="noopener noreferrer">Official website</a>
-        <p>Make sure you know and agree with: <a class="wordLinkStyle" href="https://redirect.mahaoxuan.top?domain=license.mahaoxuan.top&path=UserAgreement.html&originService=ThomasBInternetServices_ClassTimeLeft" target="_blank">UserArguements</a><a class="wordLinkStyle" href="https://redirect.mahaoxuan.top?domain=license.mahaoxuan.top&path=PrivacyPolicy.html&originService=ThomasBInternetServices_ClassTimeLeft" target="_blank">PrivacyPolicy</a></p>
+        <p>This page is open source. Improve it: 
+            <a href="https://redirect.annopia.com?domain=github.com&path=MaHaoxuantb/classTimeLeft&originService=ThomasBInternetServices-Countdown" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+        </p>
+        <p>
+            <a href="https://redirect.annopia.com?domain=thomasb.top&originService=ThomasBInternetServices-Countdown" target="_blank" rel="noopener noreferrer">Official website</a>
+        </p>
+        <p>Make sure you know and agree with: 
+            <a class="wordLinkStyle" href="https://redirect.mahaoxuan.top?domain=license.mahaoxuan.top&path=UserAgreement.html&originService=ThomasBInternetServices_C" target="_blank" rel="noopener noreferrer">User Agreement</a>
+        </p>
     </div>
 
     <!-- Countdown Screen -->
@@ -72,6 +115,7 @@
         <!-- Countdown Screen Content -->
         <p id="timeDisplay">00:00:00</p>
         <h2 id="remainingTimeText">Remaining Time</h2>
+        <p id="countdownEndTimeDisplay" class="end-time-display">Ends at: --:--</p>
         <div class="countdown-footer">
             <button id="exitButton" aria-label="Exit Countdown">Exit</button>
             <div class="theme-selector">
@@ -81,7 +125,7 @@
                     <option value="dark">Dark</option>
                     <option value="solarized">Solarized</option>
                     <option value="monokai">Monokai</option>
-                    <option value="pink">Pink</option> <!-- New Pink theme -->
+                    <option value="pink">Pink</option>
                 </select>
             </div>
         </div>
@@ -89,9 +133,8 @@
     </div>
 
     <script>
-        // 获取当前年份并设置到页面中
-        document.getElementById("copyright-year")
-            .textContent = new Date().getFullYear();
+        // Get current year and set it in the page
+        document.getElementById("copyright-year").textContent = new Date().getFullYear();
     </script>
 
     <script src="app.js"></script>

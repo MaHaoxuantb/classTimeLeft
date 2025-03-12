@@ -6,14 +6,14 @@
     --text-color: #333333; /* Dark text */
     --select-bg-color: #ffffff; /* White select background */
     --select-text-color: #333333; /* Dark select text */
-    --link-color: #3b5c3b; /* Changed to Dark Green */
+    --link-color: #619461; /* Changed to Dark Green */
 
     /* Other Theme Variables */
     --background-color: #f0f4f8;
     --countdown-bg-color: #ffffff;
     --countdown-text-color: #000000;
-    --button-bg-color: #3b5c3b; /* Changed to Dark Green */
-    --button-hover-bg-color: #3b5c3b; /* Darker Green on hover */
+    --button-bg-color: #619461; /* Changed to Dark Green */
+    --button-hover-bg-color: #619461; /* Darker Green on hover */
     --exit-button-bg-color: rgba(255, 77, 77, 0.8);
     --exit-button-hover-bg-color: rgba(204, 0, 0, 0.8);
     --header-text-color: #333333;

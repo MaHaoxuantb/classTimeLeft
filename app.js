@@ -1,46 +1,57 @@
 // app.js
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 主题相关的元素
+    console.log('DOM content loaded, initializing application...');
+    
+    // Theme related elements
     const themeSelect = document.getElementById('themeSelect');
     const themeSelectCountdown = document.getElementById('themeSelectCountdown');
     const themeLink = document.getElementById('theme-link');
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
 
-    // 标签相关的元素
+    // Tab related elements
     const tabButtons = document.querySelectorAll('.tab-button');
     const tabContents = document.querySelectorAll('.tab-content');
 
-    // 设置屏幕相关的元素
+    // Setup screen elements
     const setupScreen = document.getElementById('setupScreen');
     const timeForm = document.getElementById('timeForm');
     const endTimeInput = document.getElementById('endTime');
+    const timeError = document.getElementById('timeError');
 
-    // 倒计时屏幕相关的元素
+    // Quick time elements
+    const hoursInput = document.getElementById('hours');
+    const minutesInput = document.getElementById('minutes');
+    const presetButtons = document.querySelectorAll('.preset-btn');
+    const startQuickCountdownBtn = document.getElementById('startQuickCountdown');
+    const durationError = document.getElementById('durationError');
+
+    // Countdown screen elements
     const countdownScreen = document.getElementById('countdownScreen');
     const timeDisplay = document.getElementById('timeDisplay');
     const remainingTimeText = document.getElementById('remainingTimeText');
+    const countdownEndTimeDisplay = document.getElementById('countdownEndTimeDisplay');
     const exitButton = document.getElementById('exitButton');
     const alarmSound = document.getElementById('alarmSound');
 
-    // 类状态相关的元素
+    // Class status elements
     const currentTimeDisplay = document.getElementById('currentTime');
     const currentClassDisplay = document.getElementById('currentClass');
     const startCountdownButton = document.getElementById('startCountdownButton');
 
-    let countdownInterval; // 存储倒计时的 interval ID
-    let countdownEndTime;  // 存储倒计时的结束时间
+    let countdownInterval; // Stores the countdown interval ID
+    let countdownEndTime;  // Stores the countdown end time
 
-    // 定义主题颜色对应关系
+    // Define theme colors
     const themeColors = {
-        default: '#ffffff',      // 默认主题颜色
-        dark: '#404040',         // 深色主题颜色
-        solarized: '#e6e4be',    // Solarized 主题颜色
-        monokai: '#8a896e',      // Monokai 主题颜色
-        pink: '#f5c1c1'           // 浅粉色主题颜色
+        default: '#ffffff',
+        dark: '#404040',
+        solarized: '#e6e4be',
+        monokai: '#8a896e',
+        pink: '#f5c1c1'
     };
 
-    // 定义课程表（示例时间表，可根据需要调整）
+    // Define class schedule
     const classSchedule = [
         { name: 'P1', start: '08:00', end: '08:45' },
         { name: 'P2', start: '08:50', end: '09:35' },
@@ -53,30 +64,29 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'P9', start: '14:50', end: '15:35' },
         { name: 'P10', start: '15:40', end: '16:25' },
         { name: 'P11', start: '16:30', end: '17:15' },
-        { name: 'Welcome to night, child', start: '22:15', end: '06:10' } // 跨日课程
+        { name: 'Welcome to night, child', start: '22:15', end: '06:10' }
     ];
 
     /**
-     * 应用选定的主题，通过更新主题链接的 href 属性和meta主题颜色
-     * @param {string} theme - 要应用的主题名称
+     * Apply the selected theme by updating theme link href and meta theme-color
+     * @param {string} theme - The theme name to apply
      */
     function applyTheme(theme) {
-        // Force fresh loading of the CSS file by adding a cache-busting query parameter.
+        // Force fresh loading of CSS with cache-busting
         themeLink.href = `themes/${theme}.css?v=${Date.now()}`;
         console.log(`Applied theme: ${theme}`);
 
-        // 更新 meta theme-color
+        // Update meta theme-color
         if (themeColors[theme]) {
             metaThemeColor.setAttribute('content', themeColors[theme]);
         } else {
-            // 如果主题未定义，使用默认主题颜色
             metaThemeColor.setAttribute('content', themeColors['default']);
         }
     }
 
     /**
-     * 同步设置屏幕和倒计时屏幕的主题选择器
-     * @param {string} selectedTheme - 用户选择的主题
+     * Synchronize theme selection across both setup and countdown screens
+     * @param {string} selectedTheme - The selected theme
      */
     function synchronizeThemes(selectedTheme) {
         themeSelect.value = selectedTheme;
@@ -86,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * 从 localStorage 加载存储的主题，或者应用默认主题
+     * Load the stored theme from localStorage or apply the default theme
      */
     function loadStoredTheme() {
         const storedTheme = localStorage.getItem('selectedTheme') || 'default';
@@ -95,18 +105,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * 将选定的主题存储到 localStorage
-     * @param {string} theme - 要存储的主题
+     * Store the selected theme in localStorage
+     * @param {string} theme - The theme to store
      */
     function storeSelectedTheme(theme) {
         localStorage.setItem('selectedTheme', theme);
     }
 
     /**
-     * 处理主题选择器的变化事件
+     * Handle theme selection change events
      */
     function handleThemeSelection() {
-        // 设置屏幕的主题选择器事件监听
+        // Setup screen theme selector event listener
         themeSelect.addEventListener('change', (e) => {
             const selectedTheme = e.target.value;
             applyTheme(selectedTheme);
@@ -114,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
             storeSelectedTheme(selectedTheme);
         });
 
-        // 倒计时屏幕的主题选择器事件监听
+        // Countdown screen theme selector event listener
         if (themeSelectCountdown) {
             themeSelectCountdown.addEventListener('change', (e) => {
                 const selectedTheme = e.target.value;
@@ -126,33 +136,56 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * 处理标签导航，通过激活选中的标签并显示相应内容
+     * Enhanced tab navigation with improved debugging and reliability
      */
     function handleTabNavigation() {
-        tabButtons.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const target = tab.getAttribute('data-tab');
+        console.log('Initializing tab navigation with buttons:', tabButtons.length);
+        
+        if (tabButtons.length === 0 || tabContents.length === 0) {
+            console.error('Tab buttons or contents not found');
+            return;
+        }
 
+        // Ensure initial state is correct
+        tabButtons.forEach((btn, index) => {
+            const target = btn.getAttribute('data-tab');
+            console.log(`Tab button ${index} with target: ${target}`);
+            
+            // Add click event listener
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log(`Clicked tab: ${target}`);
+                
                 // Remove active class from all tabs
-                tabButtons.forEach(t => t.classList.remove('active'));
-
-                // Hide all tab contents
-                tabContents.forEach(content => content.classList.remove('active'));
-
-                // Add active class to clicked tab and show corresponding content
-                tab.classList.add('active');
-                document.getElementById(target).classList.add('active');
-
-                console.log(`Switched to tab: ${target}`);
+                tabButtons.forEach(button => {
+                    button.classList.remove('active');
+                    console.log(`Removed active class from ${button.getAttribute('data-tab')}`);
+                });
+                
+                // Hide all content
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    console.log(`Removed active class from content ${content.id}`);
+                });
+                
+                // Activate clicked tab and its content
+                btn.classList.add('active');
+                const contentElement = document.getElementById(target);
+                if (contentElement) {
+                    contentElement.classList.add('active');
+                    console.log(`Activated content: ${target}`);
+                } else {
+                    console.error(`Cannot find content element with ID: ${target}`);
+                }
             });
         });
     }
 
     /**
-     * 解析时间字符串 "HH:MM" 为 Date 对象（基于今天或明天的日期）
-     * @param {string} timeStr - 时间字符串，格式为 "HH:MM"
-     * @param {boolean} isNextDay - 是否基于明天的日期
-     * @returns {Date|null} - 返回 Date 对象或 null（如果格式无效）
+     * Parse a time string "HH:MM" into a Date object
+     * @param {string} timeStr - Time string in "HH:MM" format
+     * @param {boolean} isNextDay - Whether to return tomorrow's date
+     * @returns {Date|null} Date object or null if invalid
      */
     function parseTime(timeStr, isNextDay = false) {
         const timeParts = timeStr.split(':').map(Number);
@@ -170,8 +203,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * 判断当前时间属于哪个课程
-     * @returns {Object} - 包含状态、课程名称和结束时间
+     * Determine which class is currently in session
+     * @returns {Object} Object with status, className, and endTime
      */
     function getCurrentClass() {
         const now = new Date();
@@ -179,16 +212,16 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < classSchedule.length; i++) {
             const classStartStr = classSchedule[i].start;
             const classEndStr = classSchedule[i].end;
-            const isCrossDay = classStartStr > classEndStr; // 如果开始时间大于结束时间，则跨日
+            const isCrossDay = classStartStr > classEndStr; // Cross-day if start > end
 
             const classStart = parseTime(classStartStr);
             let classEnd;
             if (isCrossDay) {
                 if (now >= classStart) {
-                    // 如果当前时间在课程开始之后，设置结束时间为明天
+                    // If current time is after start, set end time to tomorrow
                     classEnd = parseTime(classEndStr, true);
                 } else {
-                    // 如果当前时间在课程开始之前，设置结束时间为今天
+                    // Otherwise, set end time to today
                     classEnd = parseTime(classEndStr);
                 }
             } else {
@@ -200,13 +233,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 continue;
             }
 
-            // 检查当前时间是否在课程时间内
+            // Check if current time is during class
             if (now >= classStart && now <= classEnd) {
                 console.log(`Currently in ${classSchedule[i].name}`);
                 return { status: 'In Class', className: classSchedule[i].name, endTime: classEnd };
             }
 
-            // 检查课间时间
+            // Check if current time is during break
             if (i < classSchedule.length - 1) {
                 const nextClassStartStr = classSchedule[i + 1].start;
                 const nextClassStart = parseTime(nextClassStartStr);
@@ -226,59 +259,79 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * 更新当前时间和课程状态
+     * Update the current time and class status display
+     * Optimized with requestAnimationFrame for smoother updates
      */
     function updateClassStatus() {
-        const now = new Date();
-        const hours = pad(now.getHours());
-        const minutes = pad(now.getMinutes());
-        const seconds = pad(now.getSeconds());
-        currentTimeDisplay.textContent = `Current Time: ${hours}:${minutes}:${seconds}`;
-
-        const current = getCurrentClass();
-        currentClassDisplay.textContent = `Current Status: ${current.status}${current.className ? ' - ' + current.className : ''}`;
-
-        if (current.status === 'In Class') {
-            // 检查 localStorage 是否已有 endTime
-            if (!localStorage.getItem('endTime')) {
-                const endTime = current.endTime; // 已经是 Date 对象
-                if (endTime) {
-                    localStorage.setItem('endTime', endTime.toISOString());
-                    console.log('End Time set from class schedule:', endTime.toISOString());
-                } else {
-                    console.error('Failed to parse endTime from class schedule.');
+        const updateFrame = () => {
+            const now = new Date();
+            const hours = pad(now.getHours());
+            const minutes = pad(now.getMinutes());
+            const seconds = pad(now.getSeconds());
+            currentTimeDisplay.textContent = `Current Time: ${hours}:${minutes}:${seconds}`;
+    
+            const current = getCurrentClass();
+            currentClassDisplay.textContent = `Current Status: ${current.status}${current.className ? ' - ' + current.className : ''}`;
+    
+            if (current.status === 'In Class') {
+                // Check if endTime is already stored in localStorage
+                if (!localStorage.getItem('endTime')) {
+                    const endTime = current.endTime;
+                    if (endTime) {
+                        localStorage.setItem('endTime', endTime.toISOString());
+                        console.log('End Time set from class schedule:', endTime.toISOString());
+                    } else {
+                        console.error('Failed to parse endTime from class schedule.');
+                    }
                 }
+                startCountdownButton.disabled = false;
+                startCountdownButton.textContent = `Start Countdown (Ends at ${current.endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`;
+            } else {
+                startCountdownButton.disabled = true;
+                startCountdownButton.textContent = 'Break Time - Countdown Disabled';
+                // Clear endTime from localStorage when not in class
+                localStorage.removeItem('endTime');
+                console.log('End Time cleared from localStorage.');
             }
-            startCountdownButton.disabled = false;
-            startCountdownButton.textContent = `Start Countdown (Ends at ${current.endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`;
-        } else {
-            startCountdownButton.disabled = true;
-            startCountdownButton.textContent = 'Break Time - Countdown Disabled';
-            // 如果不在课堂期间，清除 localStorage 中的 endTime
-            localStorage.removeItem('endTime');
-            console.log('End Time cleared from localStorage.');
-        }
+        };
+        
+        // Use requestAnimationFrame for smoother UI updates
+        window.requestAnimationFrame(updateFrame);
     }
 
     /**
-     * 开始倒计时
-     * @param {Date} endTime - 倒计时结束的时间对象
+     * Calculate and return an end time based on hours and minutes from now
+     * @param {number} hours - Hours to add to current time
+     * @param {number} minutes - Minutes to add to current time
+     * @returns {Date} - New Date object with added time
+     */
+    function calculateEndTimeFromDuration(hours, minutes) {
+        const now = new Date();
+        return new Date(now.getTime() + (hours * 60 * 60 * 1000) + (minutes * 60 * 1000));
+    }
+
+    /**
+     * Start the countdown timer
+     * @param {Date} endTime - The countdown end time
      */
     function startCountdown(endTime) {
-        // 清除任何现有的倒计时
+        // Clear any existing countdown
         clearInterval(countdownInterval);
 
-        // 存储倒计时结束时间
+        // Store countdown end time
         countdownEndTime = endTime.getTime();
         localStorage.setItem('endTime', endTime.toISOString());
         console.log(`Countdown started with End Time: ${endTime.toISOString()}`);
 
-        // 切换到倒计时屏幕
+        // Update end time display
+        countdownEndTimeDisplay.textContent = `Ends at: ${endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+
+        // Switch to countdown screen
         setupScreen.style.display = 'none';
         countdownScreen.style.display = 'flex';
         console.log('Transitioned to countdown screen');
 
-        // 开始倒计时
+        // Start countdown
         countdownInterval = setInterval(() => {
             const now = new Date().getTime();
             const distance = countdownEndTime - now;
@@ -292,17 +345,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         console.error('Error playing alarm sound:', error);
                     });
                 }
-                // 清除存储的 endTime
+                // Clear stored endTime
                 localStorage.removeItem('endTime');
                 return;
             }
 
-            // 计算小时、分钟和秒
+            // Calculate hours, minutes, and seconds
             const hoursLeft = Math.floor((distance / (1000 * 60 * 60)) % 24);
             const minutesLeft = Math.floor((distance / (1000 * 60)) % 60);
             const secondsLeft = Math.floor((distance / 1000) % 60);
 
-            // 更新倒计时显示
+            // Update countdown display
             timeDisplay.textContent = `${pad(hoursLeft)}:${pad(minutesLeft)}:${pad(secondsLeft)}`;
             remainingTimeText.textContent = 'Remaining Time';
         }, 1000);
@@ -310,6 +363,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * Helper function to pad numbers with leading zeros
+     * @param {number} num - Number to pad
+     * @returns {string} - Padded number as string
      */
     function pad(num) {
         return num < 10 ? `0${num}` : `${num}`;
@@ -323,8 +378,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const timeValue = endTimeInput.value;
         console.log('Form submitted with endTime:', timeValue);
         if (!timeValue) {
-            alert('Please enter a valid time.');
+            // Show inline error message
+            timeError.style.display = 'block';
             return;
+        } else {
+            timeError.style.display = 'none';
         }
 
         const endTime = parseTime(timeValue);
@@ -335,22 +393,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const now = new Date();
         if (endTime <= now) {
-            // 如果今天的时间已经过了，设置为明天
+            // If time has already passed today, set for tomorrow
             endTime.setDate(endTime.getDate() + 1);
             console.log('End time was earlier today. Setting for the next day.');
         }
 
-        // 存储 endTime
+        // Store endTime
         localStorage.setItem('endTime', endTime.toISOString());
         console.log('End Time stored:', endTime.toISOString());
 
-        // 切换到倒计时屏幕
-        setupScreen.style.display = 'none';
-        countdownScreen.style.display = 'flex';
-        console.log('Transitioned to countdown screen');
-
-        // 开始倒计时
+        // Start the countdown
         startCountdown(endTime);
+    });
+
+    /**
+     * Handle quick countdown duration setting
+     */
+    startQuickCountdownBtn.addEventListener('click', () => {
+        const hours = parseInt(hoursInput.value) || 0;
+        const minutes = parseInt(minutesInput.value) || 0;
+        
+        // Validate that at least 1 minute is set
+        if (hours === 0 && minutes < 1) {
+            durationError.style.display = 'block';
+            return;
+        }
+        
+        durationError.style.display = 'none';
+        const endTime = calculateEndTimeFromDuration(hours, minutes);
+        console.log(`Quick countdown set for ${hours}h ${minutes}m, ending at ${endTime}`);
+        
+        // Store and start countdown
+        localStorage.setItem('endTime', endTime.toISOString());
+        startCountdown(endTime);
+    });
+
+    /**
+     * Handle preset duration buttons
+     */
+    presetButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const minutes = parseInt(btn.getAttribute('data-minutes')) || 0;
+            if (minutes > 0) {
+                // For durations under 60 minutes, set hours to 0 and minutes to the preset
+                if (minutes < 60) {
+                    hoursInput.value = 0;
+                    minutesInput.value = minutes;
+                } 
+                // For hour-long durations, convert to hours and minutes
+                else {
+                    hoursInput.value = Math.floor(minutes / 60);
+                    minutesInput.value = minutes % 60;
+                }
+                durationError.style.display = 'none';
+                console.log(`Preset selected: ${minutes} minutes`);
+            }
+        });
     });
 
     /**
@@ -374,30 +472,47 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     exitButton.addEventListener('click', () => {
         console.log('Exit Countdown button clicked');
-        // 清除倒计时
+        // Clear countdown
         clearInterval(countdownInterval);
         countdownScreen.style.display = 'none';
         setupScreen.style.display = 'flex';
         console.log('Returned to setup screen');
 
-        // 清除存储的 endTime
+        // Clear stored endTime
         localStorage.removeItem('endTime');
         console.log('End Time cleared from localStorage.');
 
-        // 更新 Class Status 状态
+        // Update Class Status
         updateClassStatus();
     });
 
     /**
-     * 初始化主题设置
+     * Check for stored countdown on page load
      */
+    function checkStoredCountdown() {
+        const storedEndTime = localStorage.getItem('endTime');
+        if (storedEndTime) {
+            const endTime = new Date(storedEndTime);
+            const now = new Date();
+            if (endTime > now) {
+                console.log('Resuming stored countdown...');
+                startCountdown(endTime);
+            } else {
+                console.log('Stored countdown already expired, removing...');
+                localStorage.removeItem('endTime');
+            }
+        }
+    }
+
+    // Initialize theme settings
     loadStoredTheme();
     handleThemeSelection();
     handleTabNavigation();
 
-    // 初始调用
+    // Initial calls
     updateClassStatus();
+    checkStoredCountdown();
 
-    // 每秒更新一次课程状态
+    // Update class status every second
     setInterval(updateClassStatus, 1000);
 });

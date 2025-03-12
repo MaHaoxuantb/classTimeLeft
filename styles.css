@@ -232,17 +232,17 @@ h1 {
 /* 16. Exit Button Styles */
 #exitButton {
     padding: 0.5em 1em;
-    background-color: var(--exit-button-bg-color, rgba(255, 77, 77, 0.8)); /* From CSS variables */
+    background-color: var(--exit-button-bg-color, rgba(255, 77, 77, 0.8));
     border: none;
     color: white;
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.9em;
-    transition: background-color 0.3s ease; /* Smooth hover transition */
+    transition: background-color 0.3s ease;
 }
 
 #exitButton:hover {
-    background-color: var(--exit-button-hover-bg-color, rgba(204, 0, 0, 0.8)); /* From CSS variables */
+    background-color: var(--exit-button-hover-bg-color, rgba(204, 0, 0, 0.8));
 }
 
 /* 17. Theme Selector Styles for Countdown Screen */
@@ -256,7 +256,7 @@ h1 {
     margin-bottom: 0.3em;
     font-size: 0.9em;
     color: var(--text-color, #333333);
-    transition: color 0.5s ease; /* Smooth color transition */
+    transition: color 0.5s ease;
 }
 
 .theme-selector select {
@@ -266,21 +266,15 @@ h1 {
     background-color: var(--select-bg-color, #ffffff);
     color: var(--select-text-color, #333333);
     cursor: pointer;
-    transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition */
-    font-size: 0.9em; /* Slightly smaller font */
+    transition: background-color 0.5s ease, color 0.5s ease;
+    font-size: 0.9em;
 }
 
 /* 18. Current Time and Class Status Styles */
-#currentTime {
+#currentTime, #currentClass {
     font-size: 1.2em;
     margin-bottom: 1em;
-    transition: color 0.5s ease; /* Smooth color transition */
-}
-
-#currentClass {
-    font-size: 1.2em;
-    margin-bottom: 1em;
-    transition: color 0.5s ease; /* Smooth color transition */
+    transition: color 0.5s ease;
 }
 
 /* 19. Start Countdown Button Styles */
@@ -313,42 +307,140 @@ h1 {
 /* 21. Responsive Adjustments for Smaller Screens */
 @media (max-width: 600px) {
     #timeDisplay {
-        font-size: 4em; /* Adjust for smaller screens */
+        font-size: 4em;
     }
-
     #remainingTimeText {
         font-size: 1.2em;
     }
-
     #exitButton, .theme-selector select, #startCountdownButton {
         font-size: 0.8em;
         padding: 0.4em 0.8em;
     }
-
     .countdown-footer {
         flex-direction: column;
         gap: 1em;
     }
-
     .theme-selector {
         width: 100%;
     }
-
     .tabs {
         flex-direction: column;
         gap: 0.5em;
     }
-
     .tab-button {
         width: 100%;
     }
-
     .shared-section {
         padding: 0.8em;
         width: 95%;
     }
-
     .shared-section select {
         padding: 0.4em;
     }
+}
+
+/* =============================================================================
+   Additional Styles for Improved Typography and Enhanced Tabs & Quick Time UI
+   ============================================================================= */
+
+/* Use Roboto from Google Fonts */
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Enhanced Tab Styling */
+/* Redesigned Tab Container */
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--card-bg-color, #ffffff);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1em;
+}
+
+/* Redesigned Tab Buttons */
+.tab-button {
+    flex: 1;
+    padding: 10px 15px;
+    border: none;
+    background: transparent;
+    font-size: 1em;
+    font-weight: 500;
+    color: var(--text-color, #333333);
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tab-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.tab-button.active {
+    background-color: var(--button-bg-color, #007BFF);
+    color: #fff;
+}
+
+/* Quick Time Container Styles */
+.quick-time-container {
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    margin-bottom: 20px;
+}
+
+.duration-inputs {
+    display: flex;
+    gap: 20px;
+    margin: 15px 0;
+}
+
+.duration-field {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+}
+
+.duration-field label {
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.duration-field input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Preset button styling */
+.preset-btn {
+    padding: 8px 12px;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.preset-btn:hover {
+    background-color: #dee2e6;
+}
+
+/* Primary button styling */
+.primary-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--button-bg-color, #007BFF);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.primary-button:hover {
+    background-color: var(--button-hover-bg-color, #0056b3);
 }
