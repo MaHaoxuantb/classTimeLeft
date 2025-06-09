@@ -214,18 +214,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const classEndStr = classSchedule[i].end;
             const isCrossDay = classStartStr > classEndStr; // Cross-day if start > end
 
-            const classStart = parseTime(classStartStr);
-            let classEnd;
+            let classStart = parseTime(classStartStr);
+            let classEnd = parseTime(classEndStr);
             if (isCrossDay) {
-                if (now >= classStart) {
-                    // If current time is after start, set end time to tomorrow
-                    classEnd = parseTime(classEndStr, true);
+                if (now < classStart) {
+                    // After midnight but before today's start time
+                    if (now <= classEnd) {
+                        // Class started yesterday
+                        classStart.setDate(classStart.getDate() - 1);
+                    }
                 } else {
-                    // Otherwise, set end time to today
-                    classEnd = parseTime(classEndStr);
+                    // During or after start time on the same day, end time is tomorrow
+                    classEnd.setDate(classEnd.getDate() + 1);
                 }
-            } else {
-                classEnd = parseTime(classEndStr);
             }
 
             if (!classStart || !classEnd) {
