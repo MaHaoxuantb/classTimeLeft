@@ -1,6 +1,6 @@
 // sw.js
 
-const CACHE_NAME = 'time-counter-cache-v3.114511'; // 更新版本号以确保新资源被缓存
+const CACHE_NAME = 'time-counter-cache-v3.114513'; // 更新版本号以确保新资源被缓存
 const urlsToCache = [
     '/',
     '/index.html',
@@ -10,10 +10,12 @@ const urlsToCache = [
     '/icons/icon-192.png',
     '/icons/icon-512.png',
     '/alarm.mp3',
+    '/ios-fixes.css',
     '/themes/default.css',
     '/themes/dark.css',
     '/themes/solarized.css',
-    '/themes/monokai.css'
+    '/themes/monokai.css',
+    '/themes/pink.css'
 ];
 
 // Install Event
