@@ -51,19 +51,21 @@ document.addEventListener('DOMContentLoaded', () => {
         pink: '#f5c1c1'
     };
 
-    // Define class schedule
+    // Define class schedule (every class 40 minutes)
     const classSchedule = [
-        { name: 'P1', start: '08:00', end: '08:45' },
-        { name: 'P2', start: '08:50', end: '09:35' },
-        { name: 'P3', start: '09:45', end: '10:30' },
-        { name: 'P4', start: '10:40', end: '11:25' },
-        { name: 'P5', start: '11:30', end: '12:15' },
-        { name: 'P6', start: '12:15', end: '13:00' },
-        { name: 'P7', start: '13:05', end: '13:50' },
-        { name: 'P8', start: '13:55', end: '14:40' },
-        { name: 'P9', start: '14:50', end: '15:35' },
-        { name: 'P10', start: '15:40', end: '16:25' },
-        { name: 'P11', start: '16:30', end: '17:15' },
+        // Updated: every class now 40 minutes long
+        { name: 'P1', start: '08:00', end: '08:40' },
+        { name: 'P2', start: '08:45', end: '09:25' },
+        { name: 'P3', start: '09:35', end: '10:15' },
+        { name: 'P4', start: '10:25', end: '11:05' },
+        { name: 'P5', start: '11:10', end: '11:50' },
+        { name: 'P6', start: '11:55', end: '12:35' },
+        { name: 'P7', start: '12:40', end: '13:20' },
+        { name: 'P8', start: '13:30', end: '14:10' },
+        { name: 'P9', start: '14:15', end: '14:55' },
+        { name: 'P10', start: '15:05', end: '15:45' },
+        { name: 'P11', start: '15:50', end: '16:30' },
+        { name: 'P12', start: '16:35', end: '17:15' },
         { name: 'Welcome to night, child', start: '22:15', end: '06:10' }
     ];
 
