@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         monokai: '#8a896e',
         pink: '#f5c1c1'
     };
+    const availableThemes = new Set(Object.keys(themeColors));
 
     // Define class schedule (every class 40 minutes)
     const classSchedule = [
@@ -66,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'P10', start: '15:05', end: '15:45' },
         { name: 'P11', start: '15:50', end: '16:30' },
         { name: 'P12', start: '16:35', end: '17:15' },
-        { name: 'Welcome to night, child', start: '22:15', end: '06:10' }
+        { name: 'After-hours period', start: '22:15', end: '06:10' }
     ];
 
     /**
@@ -74,16 +75,12 @@ document.addEventListener('DOMContentLoaded', () => {
      * @param {string} theme - The theme name to apply
      */
     function applyTheme(theme) {
-        // Force fresh loading of CSS with cache-busting
-        themeLink.href = `themes/${theme}.css?v=${Date.now()}`;
-        console.log(`Applied theme: ${theme}`);
+        const selectedTheme = availableThemes.has(theme) ? theme : 'default';
+        themeLink.href = `themes/${selectedTheme}.css?v=${Date.now()}`;
+        console.log(`Applied theme: ${selectedTheme}`);
 
         // Update meta theme-color
-        if (themeColors[theme]) {
-            metaThemeColor.setAttribute('content', themeColors[theme]);
-        } else {
-            metaThemeColor.setAttribute('content', themeColors['default']);
-        }
+        metaThemeColor.setAttribute('content', themeColors[selectedTheme] || themeColors.default);
     }
 
     /**
@@ -102,8 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function loadStoredTheme() {
         const storedTheme = localStorage.getItem('selectedTheme') || 'default';
-        applyTheme(storedTheme);
-        synchronizeThemes(storedTheme);
+        setTheme(storedTheme, false);
     }
 
     /**
@@ -115,25 +111,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
+     * Apply and synchronize a theme across the UI
+     * @param {string} theme - Desired theme name
+     * @param {boolean} shouldPersist - Whether to store the selection
+     */
+    function setTheme(theme, shouldPersist = true) {
+        const selectedTheme = availableThemes.has(theme) ? theme : 'default';
+        applyTheme(selectedTheme);
+        synchronizeThemes(selectedTheme);
+        if (shouldPersist) {
+            storeSelectedTheme(selectedTheme);
+        }
+    }
+
+    /**
      * Handle theme selection change events
      */
     function handleThemeSelection() {
-        // Setup screen theme selector event listener
-        themeSelect.addEventListener('change', (e) => {
-            const selectedTheme = e.target.value;
-            applyTheme(selectedTheme);
-            synchronizeThemes(selectedTheme);
-            storeSelectedTheme(selectedTheme);
-        });
+        const handleSelection = (event) => {
+            setTheme(event.target.value);
+        };
 
-        // Countdown screen theme selector event listener
+        themeSelect.addEventListener('change', handleSelection);
+        themeSelect.addEventListener('input', handleSelection);
+
         if (themeSelectCountdown) {
-            themeSelectCountdown.addEventListener('change', (e) => {
-                const selectedTheme = e.target.value;
-                applyTheme(selectedTheme);
-                synchronizeThemes(selectedTheme);
-                storeSelectedTheme(selectedTheme);
-            });
+            themeSelectCountdown.addEventListener('change', handleSelection);
+            themeSelectCountdown.addEventListener('input', handleSelection);
         }
     }
 
@@ -161,6 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Remove active class from all tabs
                 tabButtons.forEach(button => {
                     button.classList.remove('active');
+                    button.setAttribute('aria-selected', 'false');
                     console.log(`Removed active class from ${button.getAttribute('data-tab')}`);
                 });
                 
@@ -172,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Activate clicked tab and its content
                 btn.classList.add('active');
+                btn.setAttribute('aria-selected', 'true');
                 const contentElement = document.getElementById(target);
                 if (contentElement) {
                     contentElement.classList.add('active');
@@ -271,10 +277,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const hours = pad(now.getHours());
             const minutes = pad(now.getMinutes());
             const seconds = pad(now.getSeconds());
-            currentTimeDisplay.textContent = `Current Time: ${hours}:${minutes}:${seconds}`;
+            currentTimeDisplay.textContent = `${hours}:${minutes}:${seconds}`;
     
             const current = getCurrentClass();
-            currentClassDisplay.textContent = `Current Status: ${current.status}${current.className ? ' - ' + current.className : ''}`;
+            currentClassDisplay.textContent = `${current.status}${current.className ? ' - ' + current.className : ''}`;
     
             if (current.status === 'In Class') {
                 // Check if endTime is already stored in localStorage
@@ -291,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 startCountdownButton.textContent = `Start Countdown (Ends at ${current.endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})`;
             } else {
                 startCountdownButton.disabled = true;
-                startCountdownButton.textContent = 'Break Time - Countdown Disabled';
+                startCountdownButton.textContent = 'Countdown unavailable';
                 // Clear endTime from localStorage when not in class
                 localStorage.removeItem('endTime');
                 console.log('End Time cleared from localStorage.');
@@ -478,7 +484,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clear countdown
         clearInterval(countdownInterval);
         countdownScreen.style.display = 'none';
-        setupScreen.style.display = 'flex';
+        setupScreen.style.display = '';
         console.log('Returned to setup screen');
 
         // Clear stored endTime

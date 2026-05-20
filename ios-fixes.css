@@ -1,27 +1,7 @@
-/* ios-fixes.css */
-/* Handle iOS PWA status bar */
+/* iOS PWA safe-area support is handled by the main layout styles. */
 :root {
     --safe-area-inset-top: env(safe-area-inset-top);
-}
-
-body {
-    /* Add padding to account for status bar in iOS */
-    padding-top: var(--safe-area-inset-top);
-}
-
-.container, .countdown-container {
-    /* Ensure containers respect the safe area */
-    padding-top: calc(20px + var(--safe-area-inset-top));
-}
-
-@supports (padding-top: env(safe-area-inset-top)) {
-    .container, .countdown-container {
-        padding-top: calc(20px + env(safe-area-inset-top));
-    }
-}
-
-/* Fixed elements should also respect the safe area */
-.countdown-container {
-    height: calc(100vh - env(safe-area-inset-top));
-    margin-top: env(safe-area-inset-top);
+    --safe-area-inset-right: env(safe-area-inset-right);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    --safe-area-inset-left: env(safe-area-inset-left);
 }

@@ -1,116 +1,17 @@
-/* themes/pink.css */
-
 :root {
-    /* Shared Section Colors */
-    --shared-bg-color: #ffeef0; /* Light pink background */
-    --text-color: #333333; /* Dark text */
-    --select-bg-color: #ffeef0; /* Light pink select background */
-    --select-text-color: #333333; /* Dark select text */
-    --link-color: #be6f97; /* Pinkish link color */
-
-    /* Other Theme Variables */
+    --shared-bg-color: #ffeef0;
+    --text-color: #333333;
+    --select-bg-color: #fff2f5;
+    --select-text-color: #333333;
+    --link-color: #be6f97;
     --background-color: #fce8f0;
-    --countdown-bg-color: #ffeef0; /* Light pink background for countdown screen */
-    --countdown-text-color: #c04b86; /* Pinkish text for countdown */
-    --button-bg-color: #cc6196; /* Pink button */
-    --button-hover-bg-color: #cc487d; /* Darker pink on hover */
-    --exit-button-bg-color: rgba(255, 77, 77, 0.8);
-    --exit-button-hover-bg-color: rgba(204, 0, 0, 0.8);
+    --countdown-bg-color: #ffeef0;
+    --countdown-text-color: #c04b86;
+    --button-bg-color: #cc6196;
+    --button-hover-bg-color: #b95688;
+    --exit-button-bg-color: rgba(255, 92, 92, 0.88);
+    --exit-button-hover-bg-color: rgba(214, 52, 52, 0.92);
     --header-text-color: #333333;
     --card-bg-color: #ffeef0;
     --card-box-shadow: rgba(0, 0, 0, 0.1);
-}
-
-/* General Body Styles */
-body {
-    background-color: var(--background-color);
-    color: var(--text-color);
-    font-family: 'Roboto', sans-serif;
-    line-height: 1.6;
-}
-
-/* Links */
-a {
-    color: var(--link-color);
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* Buttons */
-button {
-    background-color: var(--button-bg-color);
-    color: #ffffff;
-    border-radius: 4px;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: var(--button-hover-bg-color);
-}
-
-/* Card */
-.card {
-    background-color: var(--card-bg-color);
-    border-radius: 10px;
-    box-shadow: 0 2px 5px var(--card-box-shadow);
-    padding: 15px;
-    margin-bottom: 20px;
-}
-
-/* Select Element */
-select {
-    background-color: var(--select-bg-color);
-    color: var(--select-text-color);
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #444;
-}
-
-/* Countdown Screen */
-.countdown-container {
-    background-color: var(--countdown-bg-color);
-    padding: 20px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-#timeDisplay {
-    color: var(--countdown-text-color);
-    font-size: 6rem;
-}
-
-/* Header */
-.header {
-    background-color: var(--background-color);
-    box-shadow: 0 4px 6px var(--card-box-shadow);
-    color: var(--header-text-color);
-    padding: 10px;
-    text-align: center;
-    position: sticky;
-    top: 0;
-}
-
-.exit-button {
-    background-color: var(--exit-button-bg-color);
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.exit-button:hover {
-    background-color: var(--exit-button-hover-bg-color);
 }

@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Countdown Timer</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Class Countdown</title>
     <link rel="manifest" href="manifest.json">
     <!-- Theme Stylesheet with unique ID -->
-    <link rel="stylesheet" href="ios-fixes.css">
     <link id="theme-link" rel="stylesheet" href="themes/default.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="ios-fixes.css">
     <!-- iOS specific meta tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -16,101 +16,104 @@
     <meta name="theme-color" content="#007BFF"> <!-- Default theme color -->
     <!-- Apple status bar appearance -->
     <meta name="apple-mobile-web-app-title" content="Class Timer">
-    <!-- Google Fonts for improved typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Setup Screen -->
-    <div class="container" id="setupScreen">
-        <h1>Countdown Timer</h1>
-        
-        <!-- Enhanced Tab Navigation -->
-        <div class="tabs" role="tablist">
-            <button class="tab-button active" data-tab="setTime" role="tab" aria-selected="true" aria-controls="setTime">Set Time</button>
-            <button class="tab-button" data-tab="quickTime" role="tab" aria-selected="false" aria-controls="quickTime">Time Duration</button>
-            <button class="tab-button" data-tab="classStatus" role="tab" aria-selected="false" aria-controls="classStatus">Class Status</button>
-        </div>        
-        
-        <!-- Tab Contents -->
-        <div class="tab-content active" id="setTime">
-            <form id="timeForm">
-                <label for="endTime">Enter Class End Time (Format: HH:MM, e.g., 15:30):</label>
-                <input type="time" id="endTime" required>
-                <div id="timeError" style="display:none; color: red; margin: 5px 0;">
-                    Please enter a valid time.
-                </div>
-                <button type="submit" class="primary-button">Start Countdown</button>
-            </form>
-        </div>
-        
-        <!-- New Quick Time Tab -->
-        <div class="tab-content" id="quickTime">
-            <div class="quick-time-container">
-                <h3>Set countdown by duration</h3>
-                <div class="duration-inputs">
-                    <div class="duration-field">
-                        <label for="hours">Hours:</label>
-                        <input type="number" id="hours" min="0" max="24" value="0">
-                    </div>
-                    <div class="duration-field">
-                        <label for="minutes">Minutes:</label>
-                        <input type="number" id="minutes" min="0" max="59" value="0">
-                    </div>
-                </div>
-                <div id="durationError" style="display:none; color: red; margin: 5px 0;">
-                    Please enter at least 1 minute duration.
-                </div>
-                <div class="quick-presets">
-                    <button class="preset-btn" data-minutes="5">5 min</button>
-                    <button class="preset-btn" data-minutes="10">10 min</button>
-                    <button class="preset-btn" data-minutes="15">15 min</button>
-                    <button class="preset-btn" data-minutes="30">30 min</button>
-                    <button class="preset-btn" data-minutes="45">45 min</button>
-                    <button class="preset-btn" data-minutes="60">1 hour</button>
-                </div>
-                <button id="startQuickCountdown" class="primary-button">Start Quick Countdown</button>
+    <main class="app-shell">
+        <!-- Setup Screen -->
+        <section class="container" id="setupScreen" aria-labelledby="appTitle">
+            <div class="header-block">
+                <h1 id="appTitle">Class Countdown</h1>
+                <p>Start a timer from an end time, a duration, or the current schedule.</p>
             </div>
-        </div>
-        
-        <div class="tab-content" id="classStatus">
-            <p id="currentTime">Current Time: --:--:--</p>
-            <p id="currentClass">Current Status: --</p>
-            <button id="startCountdownButton" class="primary-button">Start Countdown</button>
-        </div>
-    </div>
 
-    <!-- Shared Theme Selection Section -->
-    <div class="shared-section theme-selector">
-        <label for="themeSelect">Select Theme:</label>
-        <select id="themeSelect">
-            <option value="default">Default</option>
-            <option value="dark">Dark</option>
-            <option value="solarized">Solarized</option>
-            <option value="monokai">Monokai</option>
-            <option value="pink">Pink</option>
-        </select>
-    </div>
-    
-    <!-- Shared Details Section -->
-    <div class="shared-section details">
-        <p>Copyright 2022~
-            <span id="copyright-year"></span>
-            &copy ThomasBInternetServicesInfrastructure
-        </p>
-        <p>The timetable is based on one school, which do NOT fit other school's schedule.</p>
-        <p>This page is open source. Improve it: 
-            <a href="https://redirect.annopia.com?domain=github.com&path=MaHaoxuantb/classTimeLeft&originService=ThomasBInternetServices-Countdown" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
-        </p>
-        <p>
-            <a href="https://redirect.annopia.com?domain=thomasb.top&originService=ThomasBInternetServices-Countdown" target="_blank" rel="noopener noreferrer">Official website</a>
-        </p>
-        <p>Make sure you know and agree with: 
-            <a class="wordLinkStyle" href="https://redirect.mahaoxuan.top?domain=license.mahaoxuan.top&path=UserAgreement.html&originService=ThomasBInternetServices_C" target="_blank" rel="noopener noreferrer">User Agreement</a>
-            <a class="wordLinkStyle" href="https://redirect.mahaoxuan.top?domain=license.mahaoxuan.top&path=PrivacyPolicy.html&originService=ThomasBInternetServices_ClassTimeLeft" target="_blank">PrivacyPolicy</a>
-        </p>
-    </div>
+            <!-- Tab Navigation -->
+            <div class="tabs" role="tablist" aria-label="Countdown setup options">
+                <button class="tab-button active" data-tab="setTime" role="tab" aria-selected="true" aria-controls="setTime">End Time</button>
+                <button class="tab-button" data-tab="quickTime" role="tab" aria-selected="false" aria-controls="quickTime">Duration</button>
+                <button class="tab-button" data-tab="classStatus" role="tab" aria-selected="false" aria-controls="classStatus">Schedule</button>
+            </div>
+
+            <!-- Tab Contents -->
+            <div class="tab-content active" id="setTime" role="tabpanel">
+                <form id="timeForm" class="timer-card">
+                    <div class="field-group">
+                        <label for="endTime">Class ends at</label>
+                        <input type="time" id="endTime" required>
+                    </div>
+                    <div id="timeError" class="form-error">
+                        Please enter a valid time.
+                    </div>
+                    <button type="submit" class="primary-button">Start Countdown</button>
+                </form>
+            </div>
+
+            <div class="tab-content" id="quickTime" role="tabpanel">
+                <div class="quick-time-container timer-card">
+                    <h2>Countdown duration</h2>
+                    <div class="duration-inputs">
+                        <div class="duration-field">
+                            <label for="hours">Hours</label>
+                            <input type="number" id="hours" min="0" max="24" value="0" inputmode="numeric">
+                        </div>
+                        <div class="duration-field">
+                            <label for="minutes">Minutes</label>
+                            <input type="number" id="minutes" min="0" max="59" value="0" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div id="durationError" class="form-error">
+                        Please enter at least 1 minute.
+                    </div>
+                    <div class="quick-presets" aria-label="Preset durations">
+                        <button class="preset-btn" data-minutes="5">5 min</button>
+                        <button class="preset-btn" data-minutes="10">10 min</button>
+                        <button class="preset-btn" data-minutes="15">15 min</button>
+                        <button class="preset-btn" data-minutes="30">30 min</button>
+                        <button class="preset-btn" data-minutes="45">45 min</button>
+                        <button class="preset-btn" data-minutes="60">1 hour</button>
+                    </div>
+                    <button id="startQuickCountdown" class="primary-button">Start Countdown</button>
+                </div>
+            </div>
+
+            <div class="tab-content" id="classStatus" role="tabpanel">
+                <div class="timer-card status-card">
+                    <div>
+                        <span class="status-label">Current time</span>
+                        <p id="currentTime">--:--:--</p>
+                    </div>
+                    <div>
+                        <span class="status-label">Schedule status</span>
+                        <p id="currentClass">--</p>
+                    </div>
+                    <button id="startCountdownButton" class="primary-button">Start Countdown</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Shared Theme Selection Section -->
+        <section class="shared-section theme-selector" aria-label="Theme selection">
+            <label for="themeSelect">Theme</label>
+            <select id="themeSelect">
+                <option value="default">Default</option>
+                <option value="dark">Dark</option>
+                <option value="solarized">Solarized</option>
+                <option value="monokai">Monokai</option>
+                <option value="pink">Pink</option>
+            </select>
+        </section>
+
+        <!-- Shared Details Section -->
+        <footer class="shared-section details">
+            <p>Schedule data is specific to one school.</p>
+            <nav aria-label="Project links">
+                <a href="https://redirect.annopia.com?domain=github.com&path=MaHaoxuantb/classTimeLeft&originService=ThomasBInternetServices-Countdown" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://redirect.annopia.com?domain=thomasb.top&originService=ThomasBInternetServices-Countdown" target="_blank" rel="noopener noreferrer">Website</a>
+                <a class="wordLinkStyle" href="https://redirect.mahaoxuan.top?domain=license.mahaoxuan.top&path=UserAgreement.html&originService=ThomasBInternetServices_C" target="_blank" rel="noopener noreferrer">User Agreement</a>
+                <a class="wordLinkStyle" href="https://redirect.mahaoxuan.top?domain=license.mahaoxuan.top&path=PrivacyPolicy.html&originService=ThomasBInternetServices_ClassTimeLeft" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+            </nav>
+            <p>&copy; 2022-<span id="copyright-year"></span> ThomasBInternetServicesInfrastructure</p>
+        </footer>
+    </main>
 
     <!-- Countdown Screen -->
     <div class="countdown-container" id="countdownScreen" style="display: none;">
