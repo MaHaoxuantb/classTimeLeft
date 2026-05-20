@@ -42,13 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let countdownInterval; // Stores the countdown interval ID
     let countdownEndTime;  // Stores the countdown end time
 
-    // Define theme colors
+    // Match the browser chrome color to each theme's page background
     const themeColors = {
-        default: '#ffffff',
-        dark: '#404040',
-        solarized: '#e6e4be',
-        monokai: '#8a896e',
-        pink: '#f5c1c1'
+        default: '#f0f4f8',
+        dark: '#121212',
+        solarized: '#fdf6e3',
+        monokai: '#272822',
+        pink: '#fce8f0'
     };
     const availableThemes = new Set(Object.keys(themeColors));
 
