@@ -38,6 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentTimeDisplay = document.getElementById('currentTime');
     const currentClassDisplay = document.getElementById('currentClass');
     const startCountdownButton = document.getElementById('startCountdownButton');
+    const endTimeStorageKey = 'endTime';
+    const countdownDismissedStorageKey = 'countdownDismissed';
 
     let countdownInterval; // Stores the countdown interval ID
     let countdownEndTime;  // Stores the countdown end time
@@ -108,6 +110,18 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function storeSelectedTheme(theme) {
         localStorage.setItem('selectedTheme', theme);
+    }
+
+    function clearCountdownDismissal() {
+        localStorage.removeItem(countdownDismissedStorageKey);
+    }
+
+    function dismissCountdownResume() {
+        localStorage.setItem(countdownDismissedStorageKey, 'true');
+    }
+
+    function isCountdownDismissed() {
+        return localStorage.getItem(countdownDismissedStorageKey) === 'true';
     }
 
     /**
@@ -283,11 +297,10 @@ document.addEventListener('DOMContentLoaded', () => {
             currentClassDisplay.textContent = `${current.status}${current.className ? ' - ' + current.className : ''}`;
     
             if (current.status === 'In Class') {
-                // Check if endTime is already stored in localStorage
-                if (!localStorage.getItem('endTime')) {
+                if (!localStorage.getItem(endTimeStorageKey) && !isCountdownDismissed()) {
                     const endTime = current.endTime;
                     if (endTime) {
-                        localStorage.setItem('endTime', endTime.toISOString());
+                        localStorage.setItem(endTimeStorageKey, endTime.toISOString());
                         console.log('End Time set from class schedule:', endTime.toISOString());
                     } else {
                         console.error('Failed to parse endTime from class schedule.');
@@ -298,8 +311,8 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 startCountdownButton.disabled = true;
                 startCountdownButton.textContent = 'Countdown unavailable';
-                // Clear endTime from localStorage when not in class
-                localStorage.removeItem('endTime');
+                localStorage.removeItem(endTimeStorageKey);
+                clearCountdownDismissal();
                 console.log('End Time cleared from localStorage.');
             }
         };
@@ -329,7 +342,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Store countdown end time
         countdownEndTime = endTime.getTime();
-        localStorage.setItem('endTime', endTime.toISOString());
+        clearCountdownDismissal();
+        localStorage.setItem(endTimeStorageKey, endTime.toISOString());
         console.log(`Countdown started with End Time: ${endTime.toISOString()}`);
 
         // Update end time display
@@ -354,8 +368,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         console.error('Error playing alarm sound:', error);
                     });
                 }
-                // Clear stored endTime
-                localStorage.removeItem('endTime');
+                localStorage.removeItem(endTimeStorageKey);
+                clearCountdownDismissal();
                 return;
             }
 
@@ -407,8 +421,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('End time was earlier today. Setting for the next day.');
         }
 
-        // Store endTime
-        localStorage.setItem('endTime', endTime.toISOString());
+        clearCountdownDismissal();
+        localStorage.setItem(endTimeStorageKey, endTime.toISOString());
         console.log('End Time stored:', endTime.toISOString());
 
         // Start the countdown
@@ -432,8 +446,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const endTime = calculateEndTimeFromDuration(hours, minutes);
         console.log(`Quick countdown set for ${hours}h ${minutes}m, ending at ${endTime}`);
         
-        // Store and start countdown
-        localStorage.setItem('endTime', endTime.toISOString());
+        clearCountdownDismissal();
+        localStorage.setItem(endTimeStorageKey, endTime.toISOString());
         startCountdown(endTime);
     });
 
@@ -465,14 +479,19 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     startCountdownButton.addEventListener('click', () => {
         console.log('Start Countdown button clicked');
-        const storedEndTime = localStorage.getItem('endTime');
+        const storedEndTime = localStorage.getItem(endTimeStorageKey);
         console.log('Stored End Time retrieved:', storedEndTime);
         if (storedEndTime) {
             const endTime = new Date(storedEndTime);
             console.log('Parsed End Time:', endTime);
             startCountdown(endTime);
         } else {
-            alert('No end time set. Please set the countdown time first.');
+            const current = getCurrentClass();
+            if (current.status === 'In Class' && current.endTime) {
+                startCountdown(current.endTime);
+            } else {
+                alert('No end time set. Please set the countdown time first.');
+            }
         }
     });
 
@@ -487,8 +506,8 @@ document.addEventListener('DOMContentLoaded', () => {
         setupScreen.style.display = '';
         console.log('Returned to setup screen');
 
-        // Clear stored endTime
-        localStorage.removeItem('endTime');
+        localStorage.removeItem(endTimeStorageKey);
+        dismissCountdownResume();
         console.log('End Time cleared from localStorage.');
 
         // Update Class Status
@@ -499,7 +518,12 @@ document.addEventListener('DOMContentLoaded', () => {
      * Check for stored countdown on page load
      */
     function checkStoredCountdown() {
-        const storedEndTime = localStorage.getItem('endTime');
+        if (isCountdownDismissed()) {
+            console.log('Countdown resume skipped after explicit exit.');
+            return;
+        }
+
+        const storedEndTime = localStorage.getItem(endTimeStorageKey);
         if (storedEndTime) {
             const endTime = new Date(storedEndTime);
             const now = new Date();
@@ -508,7 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 startCountdown(endTime);
             } else {
                 console.log('Stored countdown already expired, removing...');
-                localStorage.removeItem('endTime');
+                localStorage.removeItem(endTimeStorageKey);
             }
         }
     }
